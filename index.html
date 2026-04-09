@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mudanzas Sbora | Mudanzas y Guardamuebles Premium</title>
-    <meta name="description" content="Mudanzas Sbora ofrece servicios de mudanzas residenciales, de oficina y guardamuebles en Argentina con un enfoque premium y eficiente.">
+    <title>Mudanzas Sbora | Desde 1898</title>
+    <meta name="description" content="Mudanzas Sbora, empresa familiar desde 1898 ofreciendo el mejor servicio al menor precio. Mudanzas, bauleras, guardamuebles y embalajes.">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23D32F2F' font-family='Arial' font-weight='bold'>S</text></svg>">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +28,9 @@
             <ul class="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#bauleras">Bauleras</a></li>
+                <li><a href="#guardamuebles">Guardamuebles</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#presupuesto" class="btn-primary">Presupuesto</a></li>
             </ul>
             <div class="menu-toggle">
@@ -40,67 +46,182 @@
         <section id="inicio" class="hero">
             <div class="hero-overlay"></div>
             <div class="hero-content container">
-                <h1 class="fade-in">Mudanzas Profesionales <br><span>Sin Preocupaciones</span></h1>
-                <p class="fade-in-delayed">Trasladamos tus sueños con el cuidado y la eficiencia que mereces en toda Argentina.</p>
+                <h1 class="fade-in">"Desde 1898, el mejor servicio <br><span>al menor precio"</span></h1>
+                <p class="fade-in-delayed">Empresa familiar con más de un siglo de trayectoria trasladando tus sueños con profesionalidad.</p>
                 <div class="hero-btns fade-in-delayed">
                     <a href="#presupuesto" class="btn-main">Iniciar Presupuesto</a>
-                    <a href="#servicios" class="btn-outline">Nuestros Servicios</a>
+                    <a href="#servicios" class="btn-outline">Ver Servicios</a>
                 </div>
             </div>
         </section>
 
-        <!-- Services Section -->
+        <!-- Services Section Overview -->
         <section id="servicios" class="services container section">
             <div class="section-header">
                 <h2>Servicios Integrales</h2>
                 <div class="underline"></div>
             </div>
             <div class="services-grid">
-                <div class="service-card" data-aos="fade-up">
+                <div class="service-card" onclick="location.href='#inicio'">
                     <div class="service-icon">🚚</div>
-                    <h3>Mudanzas Familiares</h3>
-                    <p>Cuidado excepcional para tu hogar y tus recuerdos más preciados.</p>
+                    <h3>Mudanzas</h3>
+                    <p>Residenciales y comerciales con máximo cuidado.</p>
                 </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-icon">🏢</div>
-                    <h3>Mudanzas de Oficinas</h3>
-                    <p>Planificación logística eficiente para minimizar el tiempo de inactividad.</p>
+                <div class="service-card" onclick="location.href='#bauleras'">
+                    <div class="service-icon">🔑</div>
+                    <h3>Bauleras</h3>
+                    <p>Privacidad absoluta: Cierra y se lleva la llave.</p>
                 </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-card" onclick="location.href='#guardamuebles'">
                     <div class="service-icon">📦</div>
                     <h3>Guardamuebles</h3>
-                    <p>Depósitos seguros y monitoreados para tu tranquilidad total.</p>
+                    <p>Depósitos acondicionados libres de humedad.</p>
+                </div>
+                <div class="service-card" onclick="location.href='#embalaje'">
+                    <div class="service-icon">🎀</div>
+                    <h3>Embalajes</h3>
+                    <p>Personal especializado y materiales reforzados.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Quote Form (Multi-step) -->
+        <!-- Bauleras Section -->
+        <section id="bauleras" class="section bauleras">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Bauleras Privadas</h2>
+                    <p>Seguridad y privacidad total para tus pertenencias.</p>
+                    <div class="underline"></div>
+                </div>
+                <div class="bauleras-content">
+                    <div class="bauleras-features">
+                        <div class="feature-item"><span>🔒</span> Cierra y se lleva la llave</div>
+                        <div class="feature-item"><span>📹</span> Cámaras Monitoreadas</div>
+                        <div class="feature-item"><span>🚨</span> Alarma y Sensores de Humo</div>
+                        <div class="feature-item"><span>👮</span> Vigilancia 24hs</div>
+                    </div>
+                    <div class="bauleras-grid">
+                        <div class="baulera-type">
+                            <div class="baulera-icon">📦</div>
+                            <h3>Max 12 m³</h3>
+                            <p>Ideal para departamentos grandes o excedentes de stock.</p>
+                        </div>
+                        <div class="baulera-type">
+                            <div class="baulera-icon">📦</div>
+                            <h3>Classic 8 m³</h3>
+                            <p>Espacio perfecto para mudanzas estándar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guardamuebles Section -->
+        <section id="guardamuebles" class="section guardamuebles dark-bg">
+            <div class="container">
+                <div class="info-block">
+                    <div class="info-text">
+                        <h2>Guardamuebles Profesional</h2>
+                        <div class="underline-left"></div>
+                        <p class="highlight">Servicio de estibamiento, inventariado y forrado de muebles.</p>
+                        <p>Nuestros depósitos cuentan con todos los materiales necesarios para una guarda y protección de los muebles. El procedimiento es sencillo: sus muebles ingresan al depósito, se individualizan uno a uno y se forran para un mayor cuidado.</p>
+                        <p>Los galpones son de loza y totalmente acondicionados para el rubro, instalaciones modernas <strong>libres de humedad</strong>.</p>
+                        <div class="info-tags">
+                            <span>Inventario detallado (48-72hs)</span>
+                            <span>Cajas dobles rotuladas</span>
+                            <span>Seguro de guarda</span>
+                        </div>
+                        <div class="horarios">
+                            <p><strong>Horarios de ingreso:</strong> Lun a Vie 10 a 16hs | Sáb 10 a 13hs (Con reserva 24hs).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Embalaje Section -->
+        <section id="embalaje" class="section embalaje">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Servicio de Embalaje</h2>
+                    <p>Personal especializado para un traslado seguro.</p>
+                    <div class="underline"></div>
+                </div>
+                <div class="embalaje-grid">
+                    <div class="embalaje-text">
+                        <p>Contamos con personal especializado para embalar vajilla, libros, cristalería y más. Aseguramos un embalaje eficaz para su tranquilidad.</p>
+                        <h3>Consejos de Seguridad:</h3>
+                        <ol class="consejos-list">
+                            <li>Cajas grandes para objetos livianos, chicas para pesados/frágiles.</li>
+                            <li>Platos en vertical sobre colchón de papel.</li>
+                            <li>Botellas envueltas individualmente en cajas chicas.</li>
+                            <li>Libros en cajas reforzadas hasta la mitad.</li>
+                            <li>Tapar cajas con manteles/frazadas para protección extra.</li>
+                            <li>No trasladamos joyas, dinero u objetos de alto valor (debe llevarlos el cliente).</li>
+                            <li>Proveeremos todas las cajas necesarias para un embalaje perfecto.</li>
+                        </ol>
+                    </div>
+                    <div class="cajas-grid">
+                        <div class="caja-card">
+                            <h4>Cajas Mudanceras</h4>
+                            <span>60x40x40</span>
+                            <p>Para el grueso del embalaje.</p>
+                        </div>
+                        <div class="caja-card">
+                            <h4>Cajas Reforzadas</h4>
+                            <span>40x30x40</span>
+                            <p>Para libros y cosas pesadas.</p>
+                        </div>
+                        <div class="caja-card">
+                            <h4>Baúles de Ropa</h4>
+                            <span>90x50x50</span>
+                        </div>
+                        <div class="materiales">
+                            <span>Cinta</span> <span>Pluribol</span> <span>Papel</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quienes Somos Section -->
+        <section id="nosotros" class="section nosotros dark-bg">
+            <div class="container text-center">
+                <h2>Quiénes Somos</h2>
+                <div class="underline"></div>
+                <p class="quote-text">"Desde 1898, el mejor servicio al menor precio"</p>
+                <div class="nosotros-content">
+                    <p>Somos una empresa familiar que comenzó sus actividades en el año 1898. Nos hemos mantenido en el mercado gracias al trabajo responsable, la profesionalidad y nuestra capacidad de adaptación.</p>
+                    <p>Contamos con personal altamente capacitado e idóneo para todo tipo de traslados. Ofrecemos un servicio completo con precios accesibles y la seguridad que sus muebles merecen.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote Form (Multi-step Refactored) -->
         <section id="presupuesto" class="quote section">
             <div class="container">
                 <div class="quote-card glass">
                     <div class="quote-header">
-                        <h2>Tu Presupuesto en Segundos</h2>
-                        <p>Completa 3 simples pasos para recibir una cotización personalizada.</p>
-                    </div>
-                    
-                    <!-- Progress Bar -->
-                    <div class="progress-container">
-                        <div class="progress" id="progress"></div>
-                        <div class="circle active">1</div>
-                        <div class="circle">2</div>
-                        <div class="circle">3</div>
+                        <h2>Solicitud de Presupuesto</h2>
+                        <div class="progress-container">
+                            <div class="progress" id="progress"></div>
+                            <div class="circle active">1</div>
+                            <div class="circle">2</div>
+                            <div class="circle">3</div>
+                            <div class="circle">4</div>
+                        </div>
                     </div>
 
                     <form id="multi-step-form">
                         <!-- Step 1: Locations -->
                         <div class="form-step active" id="step1">
-                            <h3>¿Dónde comenzamos?</h3>
+                            <h3>Ruta del Traslado</h3>
                             <div class="form-group">
-                                <label for="origin">Origen (Ciudad/Barrio)</label>
+                                <label for="origin">Origen (Desde)</label>
                                 <input type="text" id="origin" placeholder="Ej: Palermo, CABA" required>
                             </div>
                             <div class="form-group">
-                                <label for="destination">Destino (Ciudad/Barrio)</label>
+                                <label for="destination">Destino (Hacia)</label>
                                 <input type="text" id="destination" placeholder="Ej: Pilar, GBA" required>
                             </div>
                             <div class="form-btns">
@@ -108,48 +229,128 @@
                             </div>
                         </div>
 
-                        <!-- Step 2: Size -->
+                        <!-- Step 2: Property Type -->
                         <div class="form-step" id="step2">
-                            <h3>¿Qué vamos a trasladar?</h3>
-                            <div class="size-grid">
-                                <div class="size-option" onclick="selectSize('mono')">
+                            <h3>Tipo de Propiedad</h3>
+                            <div class="type-grid">
+                                <div class="type-option" onclick="selectType('casa')">
                                     <div class="icon">🏠</div>
-                                    <span>Monoambiente</span>
+                                    <span>Casa</span>
                                 </div>
-                                <div class="size-option" onclick="selectSize('2amb')">
-                                    <div class="icon">🏡</div>
-                                    <span>2 Ambientes</span>
-                                </div>
-                                <div class="size-option" onclick="selectSize('casa')">
-                                    <div class="icon">🏰</div>
-                                    <span>Casa Grande</span>
-                                </div>
-                                <div class="size-option" onclick="selectSize('oficina')">
-                                    <div class="icon">💼</div>
-                                    <span>Oficina</span>
+                                <div class="type-option" onclick="selectType('depto')">
+                                    <div class="icon">🏢</div>
+                                    <span>Departamento</span>
                                 </div>
                             </div>
-                            <input type="hidden" id="size-selection" required>
+                            <input type="hidden" id="prop-type" required>
+                            
+                            <!-- Conditional Fields for Depto -->
+                            <div id="depto-details" class="conditional-fields">
+                                <div class="form-group">
+                                    <label for="piso">¿En qué piso está?</label>
+                                    <input type="number" id="piso" placeholder="Ej: 4">
+                                </div>
+                                <div class="form-group radio-group">
+                                    <label>¿Tiene ascensor?</label>
+                                    <div class="radios">
+                                        <label><input type="radio" name="ascensor" value="si"> Sí</label>
+                                        <label><input type="radio" name="ascensor" value="no"> No</label>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-btns">
                                 <button type="button" class="btn-prev" onclick="prevStep(1)">Volver</button>
                                 <button type="button" class="btn-next" onclick="nextStep(3)">Continuar</button>
                             </div>
                         </div>
 
-                        <!-- Step 3: Contact -->
+                        <!-- Step 3: Detailed Inventory -->
                         <div class="form-step" id="step3">
-                            <h3>¡Casi listo!</h3>
-                            <div class="form-group">
-                                <label for="name">Nombre Completo</label>
-                                <input type="text" id="name" placeholder="Tu nombre" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">WhatsApp</label>
-                                <input type="tel" id="phone" placeholder="+54 9..." required>
+                            <h3>Detalle de Pertenencias</h3>
+                            <div class="inventory-container">
+                                <!-- Category: Ambientes -->
+                                <div class="inventory-section">
+                                    <h4>Ambientes y Básicos</h4>
+                                    <div class="items-grid">
+                                        <div class="item-ctrl"><span>Ambientes</span> <div class="counter"><button type="button" onclick="dec('amb')">-</button><input type="number" id="inv-amb" value="0"><button type="button" onclick="inc('amb')">+</button></div></div>
+                                        <div class="item-ctrl"><span>TVs</span> <div class="counter"><button type="button" onclick="dec('tv')">-</button><input type="number" id="inv-tv" value="0"><button type="button" onclick="inc('tv')">+</button></div></div>
+                                        <div class="item-ctrl"><span>Sillones (cuerpos)</span> <div class="counter"><button type="button" onclick="dec('sil')">-</button><input type="number" id="inv-sil" value="0"><button type="button" onclick="inc('sil')">+</button></div></div>
+                                    </div>
+                                </div>
+                                <!-- Category: Muebles -->
+                                <div class="inventory-section">
+                                    <h4>Muebles</h4>
+                                    <div class="items-grid">
+                                        <div class="item-ctrl"><span>Muebles Grandes (Placards/Alacenas)</span> <div class="counter"><button type="button" onclick="dec('mue-g')">-</button><input type="number" id="inv-mue-g" value="0"><button type="button" onclick="inc('mue-g')">+</button></div></div>
+                                        <div class="item-ctrl"><span>Muebles Chicos (Mesas Luz/Ratona)</span> <div class="counter"><button type="button" onclick="dec('mue-c')">-</button><input type="number" id="inv-mue-c" value="0"><button type="button" onclick="inc('mue-c')">+</button></div></div>
+                                    </div>
+                                </div>
+                                <!-- Category: Camas -->
+                                <div class="inventory-section">
+                                    <h4>Dormitorio</h4>
+                                    <div class="items-grid">
+                                        <div class="item-ctrl"><span>Cama 1 Plaza</span> <div class="counter"><button type="button" onclick="dec('cam-1')">-</button><input type="number" id="inv-cam-1" value="0"><button type="button" onclick="inc('cam-1')">+</button></div></div>
+                                        <div class="item-ctrl"><span>Cama 2 Plazas</span> <div class="counter"><button type="button" onclick="dec('cam-2')">-</button><input type="number" id="inv-cam-2" value="0"><button type="button" onclick="inc('cam-2')">+</button></div></div>
+                                        <div class="item-ctrl"><span>Sommier</span> <div class="counter"><button type="button" onclick="dec('cam-s')">-</button><input type="number" id="inv-cam-s" value="0"><button type="button" onclick="inc('cam-s')">+</button></div></div>
+                                        <div class="item-ctrl"><span>Cucheta</span> <div class="counter"><button type="button" onclick="dec('cam-c')">-</button><input type="number" id="inv-cam-c" value="0"><button type="button" onclick="inc('cam-c')">+</button></div></div>
+                                    </div>
+                                </div>
+                                <!-- Category: Electro -->
+                                <div class="inventory-section">
+                                    <h4>Línea Blanca</h4>
+                                    <div class="items-grid checkbox-group">
+                                        <label><input type="checkbox" id="inv-lav"> Lavarropas</label>
+                                        <label><input type="checkbox" id="inv-coc"> Cocina</label>
+                                        <label><input type="checkbox" id="inv-hel"> Heladera</label>
+                                        <label><input type="checkbox" id="inv-mic"> Microondas</label>
+                                        <label><input type="checkbox" id="inv-lv"> Lavavajilla</label>
+                                    </div>
+                                </div>
+                                <!-- Category: Tech -->
+                                <div class="inventory-section">
+                                    <h4>Climatización e Iluminación</h4>
+                                    <div class="items-grid">
+                                        <div class="item-ctrl"><span>Aire Acond. (Frigorías)</span> <input type="text" id="inv-aa" placeholder="Ej: 3000, 6000"></div>
+                                        <div class="item-ctrl"><span>Ventilador Techo</span> <div class="counter"><button type="button" onclick="dec('ven')">-</button><input type="number" id="inv-ven" value="0"><button type="button" onclick="inc('ven')">+</button></div></div>
+                                        <div class="item-ctrl"><span>Iluminación (Arañas/Spots)</span> <input type="text" id="inv-ilu" placeholder="Cantidad y tipo"></div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-btns">
                                 <button type="button" class="btn-prev" onclick="prevStep(2)">Volver</button>
-                                <button type="submit" class="btn-submit">Solicitar Presupuesto</button>
+                                <button type="button" class="btn-next" onclick="nextStep(4)">Continuar</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Destination & Confirm -->
+                        <div class="form-step" id="step4">
+                            <h3>Detalle en Destino</h3>
+                            <div class="form-group radio-group">
+                                <label>¿Dónde te mudas tiene escalera o ascensor?</label>
+                                <div class="radios">
+                                    <label><input type="radio" name="dest-acc" value="ascensor" onclick="toggleEst(false)"> Ascensor</label>
+                                    <label><input type="radio" name="dest-acc" value="escalera" onclick="toggleEst(true)"> Escalera</label>
+                                </div>
+                            </div>
+                            <div id="dest-escalera-piso" class="conditional-fields">
+                                <div class="form-group">
+                                    <label for="dest-pisos">Cantidad de pisos por escalera</label>
+                                    <input type="number" id="dest-pisos" placeholder="Ej: 2">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <label for="name">Tu Nombre</label>
+                                <input type="text" id="name" placeholder="Ej: Juan Pérez" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Tu WhatsApp</label>
+                                <input type="tel" id="phone" placeholder="+54 9..." required>
+                            </div>
+                            <div class="form-btns">
+                                <button type="button" class="btn-prev" onclick="prevStep(3)">Volver</button>
+                                <button type="submit" class="btn-submit">Enviar a WhatsApp</button>
                             </div>
                         </div>
                     </form>
@@ -161,22 +362,43 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">Sbora</div>
-                <div class="footer-social">
-                    <a href="#">Instagram</a>
-                    <a href="#">Facebook</a>
+            <div class="footer-grid">
+                <div class="footer-col brand">
+                    <h2 class="footer-logo">MUDANZAS SBORA</h2>
+                    <p>"Desde 1898, el mejor servicio al menor precio"</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#inicio">Mudanzas</a></li>
+                        <li><a href="#bauleras">Bauleras</a></li>
+                        <li><a href="#guardamuebles">Guardamuebles</a></li>
+                        <li><a href="#embalaje">Embalajes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="#nosotros">Quiénes Somos</a></li>
+                        <li><a href="#presupuesto">Presupuesto</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div id="contacto" class="footer-col">
+                    <h4>Contacto</h4>
+                    <p>📧 <a href="mailto:info@sboramudanzas.com.ar">info@sboramudanzas.com.ar</a></p>
+                    <p>📞 <a href="https://wa.me/541156543961">+54 11 5654 3961</a></p>
                 </div>
             </div>
             <div class="copyright">
-                &copy; 2026 Mudanzas Sbora. Todos los derechos reservados.
+                &copy; 1898 - 2026 Mudanzas Sbora. Todos los derechos reservados.
             </div>
         </div>
     </footer>
 
     <!-- WhatsApp Floating Button -->
     <div class="whatsapp-float">
-        <a href="https://wa.me/5491112345678?text=Hola!%20Me%20interesa%20un%20presupuesto%20para%20una%20mudanza." target="_blank">
+        <a href="https://wa.me/541156543961?text=Hola!%20Vengo%20de%20la%20web%20y%20me%20interesa%20un%20presupuesto." target="_blank">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
         </a>
     </div>

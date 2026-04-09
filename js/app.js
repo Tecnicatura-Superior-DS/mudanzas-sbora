@@ -33,28 +33,23 @@ function showStep(stepNum) {
     document.getElementById(`step${stepNum}`).classList.add('active');
     currentStep = stepNum;
     updateProgress();
+    // Scroll to top of form
+    document.getElementById('presupuesto').scrollIntoView({ behavior: 'smooth' });
 }
 
 window.nextStep = function(stepNum) {
-    // Basic validation for Step 1
     if (currentStep === 1) {
-        const origin = document.getElementById('origin').value;
-        const dest = document.getElementById('destination').value;
-        if (!origin || !dest) {
+        if (!document.getElementById('origin').value || !document.getElementById('destination').value) {
             alert('Por favor completa origen y destino.');
             return;
         }
     }
-    
-    // Basic validation for Step 2
     if (currentStep === 2) {
-        const size = document.getElementById('size-selection').value;
-        if (!size) {
-            alert('Por favor selecciona el tamaño de la mudanza.');
+        if (!document.getElementById('prop-type').value) {
+            alert('Por favor selecciona el tipo de propiedad.');
             return;
         }
     }
-
     showStep(stepNum);
 };
 
@@ -62,16 +57,38 @@ window.prevStep = function(stepNum) {
     showStep(stepNum);
 };
 
-// Size Selection Logic
-window.selectSize = function(size) {
-    const options = document.querySelectorAll('.size-option');
+// Selection Handlers
+window.selectType = function(type) {
+    const options = document.querySelectorAll('.type-option');
     options.forEach(opt => opt.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+    document.getElementById('prop-type').value = type;
     
-    // Find the clicked element and mark as selected
-    const selectedOpt = event.currentTarget;
-    selectedOpt.classList.add('selected');
-    
-    document.getElementById('size-selection').value = size;
+    const deptoDetails = document.getElementById('depto-details');
+    if (type === 'depto') {
+        deptoDetails.classList.add('active');
+    } else {
+        deptoDetails.classList.remove('active');
+    }
+};
+
+window.toggleEst = function(show) {
+    const estField = document.getElementById('dest-escalera-piso');
+    if (show) estField.classList.add('active');
+    else estField.classList.remove('active');
+};
+
+// Counter UI Helpers
+window.inc = function(id) {
+    const input = document.getElementById(`inv-${id}`);
+    input.value = parseInt(input.value) + 1;
+};
+
+window.dec = function(id) {
+    const input = document.getElementById(`inv-${id}`);
+    if (parseInt(input.value) > 0) {
+        input.value = parseInt(input.value) - 1;
+    }
 };
 
 // Form Submission
@@ -80,40 +97,79 @@ form.addEventListener('submit', (e) => {
     
     const origin = document.getElementById('origin').value;
     const dest = document.getElementById('destination').value;
-    const size = document.getElementById('size-selection').value;
+    const type = document.getElementById('prop-type').value;
+    const piso = document.getElementById('piso').value;
+    const asc = document.querySelector('input[name="ascensor"]:checked')?.value || 'N/A';
+    
+    // Inventory
+    const amb = document.getElementById('inv-amb').value;
+    const tv = document.getElementById('inv-tv').value;
+    const sil = document.getElementById('inv-sil').value;
+    const mueG = document.getElementById('inv-mue-g').value;
+    const mueC = document.getElementById('inv-mue-c').value;
+    const cam1 = document.getElementById('inv-cam-1').value;
+    const cam2 = document.getElementById('inv-cam-2').value;
+    const camS = document.getElementById('inv-cam-s').value;
+    const camC = document.getElementById('inv-cam-c').value;
+    
+    // Checkboxes
+    const electro = [];
+    if (document.getElementById('inv-lav').checked) electro.push('Lavarropas');
+    if (document.getElementById('inv-coc').checked) electro.push('Cocina');
+    if (document.getElementById('inv-hel').checked) electro.push('Heladera');
+    if (document.getElementById('inv-mic').checked) electro.push('Microondas');
+    if (document.getElementById('inv-lv').checked) electro.push('Lavavajilla');
+    
+    // Tech
+    const aa = document.getElementById('inv-aa').value;
+    const ven = document.getElementById('inv-ven').value;
+    const ilu = document.getElementById('inv-ilu').value;
+    
+    // Dest
+    const destAcc = document.querySelector('input[name="dest-acc"]:checked')?.value || 'N/A';
+    const destPisos = document.getElementById('dest-pisos').value || '0';
+    
     const name = document.getElementById('name').value;
     const phone = document.getElementById('phone').value;
 
-    const sizeMap = {
-        'mono': 'Monoambiente',
-        '2amb': '2 Ambientes',
-        'casa': 'Casa Grande',
-        'oficina': 'Oficina'
-    };
-
     // Construct WhatsApp Message
-    const message = `Hola Mudanzas Sbora! Mi nombre es ${name}. 
-Me gustaría un presupuesto para una mudanza:
-📍 Origen: ${origin}
-🏁 Destino: ${dest}
-📦 Tamaño: ${sizeMap[size]}
-📞 Contacto: ${phone}
-
-Espero su respuesta, ¡gracias!`;
+    let message = `🚚 *SOLICITUD DE PRESUPUESTO - SBORA*\n\n`;
+    message += `👤 *Nombre:* ${name}\n`;
+    message += `📞 *WhatsApp:* ${phone}\n\n`;
+    message += `📍 *RUTA:*\nDesde: ${origin}\nHacia: ${dest}\n\n`;
+    message += `🏠 *ORIGEN:* ${type.toUpperCase()}\n`;
+    if (type === 'depto') message += `Piso: ${piso} | Ascensor: ${asc}\n`;
+    message += `\n📦 *INVENTARIO:*\n`;
+    if (amb > 0) message += `- Ambientes: ${amb}\n`;
+    if (tv > 0) message += `- TVs: ${tv}\n`;
+    if (sil > 0) message += `- Sillones: ${sil}\n`;
+    if (mueG > 0) message += `- Muebles Gdes (Placard/Alacena): ${mueG}\n`;
+    if (mueC > 0) message += `- Muebles Chicos: ${mueC}\n`;
+    if (cam1 > 0) message += `- Camas 1p: ${cam1}\n`;
+    if (cam2 > 0) message += `- Camas 2p: ${cam2}\n`;
+    if (camS > 0) message += `- Sommier: ${camS}\n`;
+    if (camC > 0) message += `- Cucheta: ${camC}\n`;
+    if (electro.length > 0) message += `- Electro: ${electro.join(', ')}\n`;
+    if (aa) message += `- Aire Acond: ${aa}\n`;
+    if (ven > 0) message += `- Ventiladores: ${ven}\n`;
+    if (ilu) message += `- Iluminación: ${ilu}\n`;
+    
+    message += `\n🏁 *DESTINO:*\nAcceso: ${destAcc.toUpperCase()}\n`;
+    if (destAcc === 'escalera') message += `Pisos: ${destPisos}\n`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/5491112345678?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/541156543961?text=${encodedMessage}`;
 
-    // Redirect to WhatsApp
     window.open(whatsappUrl, '_blank');
 });
 
-// Mobile Menu Toggle (Simplified)
+// Mobile Menu Toggle
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 
 if (menuToggle) {
     menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('active');
     });
 }
