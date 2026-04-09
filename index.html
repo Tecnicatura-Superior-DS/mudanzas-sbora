@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudanzas Sbora | Mudanzas y Guardamuebles Premium</title>
+    <meta name="description" content="Mudanzas Sbora ofrece servicios de mudanzas residenciales, de oficina y guardamuebles en Argentina con un enfoque premium y eficiente.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo">
+                <img src="assets/images/logo.png" alt="Mudanzas Sbora" id="logo-img">
+                <span>Sbora</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#presupuesto" class="btn-primary">Presupuesto</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="inicio" class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content container">
+                <h1 class="fade-in">Mudanzas Profesionales <br><span>Sin Preocupaciones</span></h1>
+                <p class="fade-in-delayed">Trasladamos tus sueños con el cuidado y la eficiencia que mereces en toda Argentina.</p>
+                <div class="hero-btns fade-in-delayed">
+                    <a href="#presupuesto" class="btn-main">Iniciar Presupuesto</a>
+                    <a href="#servicios" class="btn-outline">Nuestros Servicios</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="servicios" class="services container section">
+            <div class="section-header">
+                <h2>Servicios Integrales</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="services-grid">
+                <div class="service-card" data-aos="fade-up">
+                    <div class="service-icon">🚚</div>
+                    <h3>Mudanzas Familiares</h3>
+                    <p>Cuidado excepcional para tu hogar y tus recuerdos más preciados.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon">🏢</div>
+                    <h3>Mudanzas de Oficinas</h3>
+                    <p>Planificación logística eficiente para minimizar el tiempo de inactividad.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon">📦</div>
+                    <h3>Guardamuebles</h3>
+                    <p>Depósitos seguros y monitoreados para tu tranquilidad total.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote Form (Multi-step) -->
+        <section id="presupuesto" class="quote section">
+            <div class="container">
+                <div class="quote-card glass">
+                    <div class="quote-header">
+                        <h2>Tu Presupuesto en Segundos</h2>
+                        <p>Completa 3 simples pasos para recibir una cotización personalizada.</p>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="progress-container">
+                        <div class="progress" id="progress"></div>
+                        <div class="circle active">1</div>
+                        <div class="circle">2</div>
+                        <div class="circle">3</div>
+                    </div>
+
+                    <form id="multi-step-form">
+                        <!-- Step 1: Locations -->
+                        <div class="form-step active" id="step1">
+                            <h3>¿Dónde comenzamos?</h3>
+                            <div class="form-group">
+                                <label for="origin">Origen (Ciudad/Barrio)</label>
+                                <input type="text" id="origin" placeholder="Ej: Palermo, CABA" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="destination">Destino (Ciudad/Barrio)</label>
+                                <input type="text" id="destination" placeholder="Ej: Pilar, GBA" required>
+                            </div>
+                            <div class="form-btns">
+                                <button type="button" class="btn-next" onclick="nextStep(2)">Continuar</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Size -->
+                        <div class="form-step" id="step2">
+                            <h3>¿Qué vamos a trasladar?</h3>
+                            <div class="size-grid">
+                                <div class="size-option" onclick="selectSize('mono')">
+                                    <div class="icon">🏠</div>
+                                    <span>Monoambiente</span>
+                                </div>
+                                <div class="size-option" onclick="selectSize('2amb')">
+                                    <div class="icon">🏡</div>
+                                    <span>2 Ambientes</span>
+                                </div>
+                                <div class="size-option" onclick="selectSize('casa')">
+                                    <div class="icon">🏰</div>
+                                    <span>Casa Grande</span>
+                                </div>
+                                <div class="size-option" onclick="selectSize('oficina')">
+                                    <div class="icon">💼</div>
+                                    <span>Oficina</span>
+                                </div>
+                            </div>
+                            <input type="hidden" id="size-selection" required>
+                            <div class="form-btns">
+                                <button type="button" class="btn-prev" onclick="prevStep(1)">Volver</button>
+                                <button type="button" class="btn-next" onclick="nextStep(3)">Continuar</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Contact -->
+                        <div class="form-step" id="step3">
+                            <h3>¡Casi listo!</h3>
+                            <div class="form-group">
+                                <label for="name">Nombre Completo</label>
+                                <input type="text" id="name" placeholder="Tu nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">WhatsApp</label>
+                                <input type="tel" id="phone" placeholder="+54 9..." required>
+                            </div>
+                            <div class="form-btns">
+                                <button type="button" class="btn-prev" onclick="prevStep(2)">Volver</button>
+                                <button type="submit" class="btn-submit">Solicitar Presupuesto</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Sbora</div>
+                <div class="footer-social">
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2026 Mudanzas Sbora. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/5491112345678?text=Hola!%20Me%20interesa%20un%20presupuesto%20para%20una%20mudanza." target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        </a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+</body>
+</html>
