@@ -337,14 +337,16 @@ input { width: 100%; padding: 1.2rem; background: var(--glass-bg); border: 1px s
     .mobile-dock { display: none; }
 }
 
-/* Back to Top */
+/* Back to Top - Refined */
 .back-to-top {
     position: fixed;
     bottom: 90px;
-    right: 25px;
-    width: 50px;
-    height: 50px;
-    background: var(--accent-color);
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background: rgba(18, 18, 18, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--accent-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -352,5 +354,38 @@ input { width: 100%; padding: 1.2rem; background: var(--glass-bg); border: 1px s
     opacity: 0;
     visibility: hidden;
     transition: var(--transition);
+    z-index: 2000;
 }
+
+.back-to-top:hover {
+    background: var(--accent-color);
+    transform: translateY(-5px);
+}
+
 .back-to-top.visible { opacity: 1; visibility: visible; }
+
+/* Spacing and Stability */
+.quote-card {
+    margin-bottom: 80px;
+}
+
+#nosotros {
+    margin-bottom: 40px;
+}
+
+.footer {
+    padding-bottom: 100px; /* Space for dock */
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 4rem;
+}
+
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
