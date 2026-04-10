@@ -161,8 +161,14 @@
                     <div class="form-step" id="step2">
                         <h3 style="margin-bottom: 2rem;">2. Tipo de Propiedad</h3>
                         <div class="type-grid">
-                            <div class="type-option" onclick="selectType('casa')" id="type-casa">🏠 Casa</div>
-                            <div class="type-option" onclick="selectType('depto')" id="type-depto">🏢 Departamento</div>
+                            <div class="type-option" onclick="selectType('casa')" id="type-casa">
+                                <div>🏠</div>
+                                <span>Casa</span>
+                            </div>
+                            <div class="type-option" onclick="selectType('depto')" id="type-depto">
+                                <div>🏢</div>
+                                <span>Departamento</span>
+                            </div>
                         </div>
                         <input type="hidden" id="prop-type" required>
                         <div id="depto-details">
@@ -185,8 +191,8 @@
                             <div class="item-ctrl"><span>Ambientes</span> <div class="counter"><button type="button" onclick="dec('amb')">-</button><input type="number" id="inv-amb" value="0" readonly><button type="button" onclick="inc('amb')">+</button></div></div>
                             <div class="item-ctrl"><span>TVs</span> <div class="counter"><button type="button" onclick="dec('tv')">-</button><input type="number" id="inv-tv" value="0" readonly><button type="button" onclick="inc('tv')">+</button></div></div>
                             <div class="item-ctrl"><span>Sillones</span> <div class="counter"><button type="button" onclick="dec('sil')">-</button><input type="number" id="inv-sil" value="0" readonly><button type="button" onclick="inc('sil')">+</button></div></div>
-                            <div id="cuerpos-wrap">
-                                <label style="font-size:0.85rem; margin-top:0.5rem;">Cuerpos del sillón</label>
+                            <div id="cuerpos-wrap" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 1rem;">
+                                <label style="font-size:0.85rem;">Cuerpos del sillón</label>
                                 <select id="sillones-cuerpos" style="width:100%; padding:0.8rem; background:var(--bg-color); color:white; border:1px solid var(--glass-border); border-radius:10px;">
                                     <option value="1">1 Cuerpo</option>
                                     <option value="2">2 Cuerpos</option>
@@ -194,6 +200,12 @@
                                     <option value="esq">Esquinero</option>
                                 </select>
                             </div>
+                            <div class="item-ctrl"><span>Heladeras</span> <div class="counter"><button type="button" onclick="dec('hel')">-</button><input type="number" id="inv-hel" value="0" readonly><button type="button" onclick="inc('hel')">+</button></div></div>
+                            <div class="item-ctrl"><span>Lavarropas</span> <div class="counter"><button type="button" onclick="dec('lav')">-</button><input type="number" id="inv-lav" value="0" readonly><button type="button" onclick="inc('lav')">+</button></div></div>
+                            <div class="item-ctrl"><span>Mesas</span> <div class="counter"><button type="button" onclick="dec('mes')">-</button><input type="number" id="inv-mes" value="0" readonly><button type="button" onclick="inc('mes')">+</button></div></div>
+                            <div class="item-ctrl"><span>Sillas</span> <div class="counter"><button type="button" onclick="dec('silla')">-</button><input type="number" id="inv-silla" value="0" readonly><button type="button" onclick="inc('silla')">+</button></div></div>
+                            <div class="item-ctrl"><span>Camas</span> <div class="counter"><button type="button" onclick="dec('cam')">-</button><input type="number" id="inv-cam" value="0" readonly><button type="button" onclick="inc('cam')">+</button></div></div>
+                            <div class="item-ctrl"><span>Cajas (aprox)</span> <div class="counter"><button type="button" onclick="dec('caj')">-</button><input type="number" id="inv-caj" value="0" readonly><button type="button" onclick="inc('caj')">+</button></div></div>
                         </div>
                         <div class="form-btns" style="margin-top:2rem;">
                             <button type="button" class="btn-outline" onclick="prevStep(2)">Volver</button>

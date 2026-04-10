@@ -96,10 +96,22 @@ input, select { width: 100% !important; padding: 1.1rem; background: var(--bg-co
 .circle { width: 35px; height: 35px; background: var(--bg-color); border: 2px solid var(--glass-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2; font-weight: 700; transition: var(--transition); font-size: 0.9rem; }
 .circle.active { border-color: var(--accent-color); color: var(--accent-color); }
 
-.item-ctrl { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--glass-border); }
+.type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+.type-option { cursor: pointer; padding: 2.5rem; border: 1px solid var(--glass-border); border-radius: 20px; text-align: center; transition: var(--transition); background: var(--bg-color); }
+.type-option:hover { border-color: var(--accent-color); background: rgba(211, 47, 47, 0.05); }
+.type-option.selected { border-color: var(--accent-color); background: rgba(211, 47, 47, 0.1); box-shadow: 0 0 20px rgba(211, 47, 47, 0.1); }
+.type-option div { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+.inventory-container { max-height: 400px; overflow-y: auto; padding-right: 1rem; margin-bottom: 2rem; }
+/* Estilo para barra de scroll personalizada (opcional pero premium) */
+.inventory-container::-webkit-scrollbar { width: 6px; }
+.inventory-container::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+
+.item-ctrl { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; border-bottom: 1px solid var(--glass-border); }
 .counter { display: flex; align-items: center; gap: 15px; }
-.counter button { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--glass-border); background: transparent; color: white; cursor: pointer; }
-.counter input { width: 35px; text-align: center; border: none; background: transparent; padding: 0; font-size: 1.1rem; color: white; font-weight: bold; }
+.counter button { width: 35px; height: 35px; border-radius: 50%; border: 1px solid var(--glass-border); background: transparent; color: white; cursor: pointer; transition: var(--transition); }
+.counter button:hover { border-color: var(--accent-color); color: var(--accent-color); }
+.counter input { width: 40px; text-align: center; border: none; background: transparent; padding: 0; font-size: 1.15rem; color: white; font-weight: bold; }
 
 #depto-details, #cuerpos-wrap { display: none; margin-top: 1rem; }
 #depto-details.active, #cuerpos-wrap.active { display: block; }
