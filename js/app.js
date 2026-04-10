@@ -82,12 +82,22 @@ window.toggleEst = function(show) {
 window.inc = function(id) {
     const input = document.getElementById(`inv-${id}`);
     input.value = parseInt(input.value) + 1;
+    
+    // Toggle cuerpos select if it's sillones
+    if (id === 'sil') {
+        document.getElementById('cuerpos-wrap').classList.add('active');
+    }
 };
 
 window.dec = function(id) {
     const input = document.getElementById(`inv-${id}`);
     if (parseInt(input.value) > 0) {
         input.value = parseInt(input.value) - 1;
+        
+        // Hide cuerpos select if sillones reaches 0
+        if (id === 'sil' && parseInt(input.value) === 0) {
+            document.getElementById('cuerpos-wrap').classList.remove('active');
+        }
     }
 };
 
@@ -98,13 +108,14 @@ form.addEventListener('submit', (e) => {
     const origin = document.getElementById('origin').value;
     const dest = document.getElementById('destination').value;
     const type = document.getElementById('prop-type').value;
-    const piso = document.getElementById('piso').value;
+    const piso = document.getElementById('piso').value || '0';
     const asc = document.querySelector('input[name="ascensor"]:checked')?.value || 'N/A';
     
     // Inventory
     const amb = document.getElementById('inv-amb').value;
     const tv = document.getElementById('inv-tv').value;
     const sil = document.getElementById('inv-sil').value;
+    const silCuerpos = document.getElementById('inv-sil-cuerpos').value;
     const mueG = document.getElementById('inv-mue-g').value;
     const mueC = document.getElementById('inv-mue-c').value;
     const cam1 = document.getElementById('inv-cam-1').value;
@@ -129,12 +140,14 @@ form.addEventListener('submit', (e) => {
     const destAcc = document.querySelector('input[name="dest-acc"]:checked')?.value || 'N/A';
     const destPisos = document.getElementById('dest-pisos').value || '0';
     
+    const email = document.getElementById('email').value;
     const name = document.getElementById('name').value;
     const phone = document.getElementById('phone').value;
 
     // Construct WhatsApp Message
     let message = `🚚 *SOLICITUD DE PRESUPUESTO - SBORA*\n\n`;
     message += `👤 *Nombre:* ${name}\n`;
+    message += `📧 *Email:* ${email}\n`;
     message += `📞 *WhatsApp:* ${phone}\n\n`;
     message += `📍 *RUTA:*\nDesde: ${origin}\nHacia: ${dest}\n\n`;
     message += `🏠 *ORIGEN:* ${type.toUpperCase()}\n`;
@@ -142,7 +155,7 @@ form.addEventListener('submit', (e) => {
     message += `\n📦 *INVENTARIO:*\n`;
     if (amb > 0) message += `- Ambientes: ${amb}\n`;
     if (tv > 0) message += `- TVs: ${tv}\n`;
-    if (sil > 0) message += `- Sillones: ${sil}\n`;
+    if (sil > 0) message += `- Sillones: ${sil} (${silCuerpos == 'esq' ? 'Esquinero' : silCuerpos + ' Cuerpos'})\n`;
     if (mueG > 0) message += `- Muebles Gdes (Placard/Alacena): ${mueG}\n`;
     if (mueC > 0) message += `- Muebles Chicos: ${mueC}\n`;
     if (cam1 > 0) message += `- Camas 1p: ${cam1}\n`;
