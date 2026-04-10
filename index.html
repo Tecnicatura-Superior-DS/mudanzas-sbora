@@ -189,6 +189,11 @@
                         <p style="color:var(--text-secondary); margin-bottom:1.5rem; font-size:0.9rem;">Indica las cantidades aproximadas por ambiente</p>
                         
                         <div class="inventory-container">
+                            <div class="item-ctrl" style="background: rgba(211,47,47,0.05); border-bottom: 2px solid var(--accent-color); margin-bottom: 2rem;">
+                                <span style="font-weight: 700; color: var(--accent-color);">Cantidad de Ambientes</span> 
+                                <div class="counter"><button type="button" onclick="dec('amb')">-</button><input type="number" id="inv-amb" value="0" readonly><button type="button" onclick="inc('amb')">+</button></div>
+                            </div>
+
                             <!-- Dormitorio -->
                             <div class="cat-header">🛏️ Dormitorio</div>
                             <div class="item-ctrl"><span>Camas 1 Plaza</span> <div class="counter"><button type="button" onclick="dec('cam1')">-</button><input type="number" id="inv-cam1" value="0" readonly><button type="button" onclick="inc('cam1')">+</button></div></div>
@@ -232,7 +237,6 @@
                                 <input type="text" id="inv-aire-txt" placeholder="Ej: 3000, 4500 o 'No tengo'">
                             </div>
                             <div class="item-ctrl"><span>Ventilador de Techo</span> <div class="counter"><button type="button" onclick="dec('vent')">-</button><input type="number" id="inv-vent" value="0" readonly><button type="button" onclick="inc('vent')">+</button></div></div>
-                            <div class="item-ctrl"><span>Cantidad de Ambientes</span> <div class="counter"><button type="button" onclick="dec('amb')">-</button><input type="number" id="inv-amb" value="0" readonly><button type="button" onclick="inc('amb')">+</button></div></div>
                         </div>
                         
                         <div class="form-btns">
@@ -249,9 +253,10 @@
                             <h4 style="margin-bottom: 1rem; color: var(--accent-color); font-size: 1rem;">Destino Final</h4>
                             <div class="form-group">
                                 <label>¿El lugar de llegada tiene escalera o ascensor?</label>
-                                <div style="display:flex; gap:2rem; margin-top: 0.5rem;">
+                                <div style="display:flex; flex-wrap:wrap; gap:1.5rem; margin-top: 0.8rem;">
                                     <label style="cursor:pointer;"><input type="radio" name="dest-acc" value="Ascensor" checked> Ascensor</label>
                                     <label style="cursor:pointer;"><input type="radio" name="dest-acc" value="Escalera"> Escalera</label>
+                                    <label style="cursor:pointer;"><input type="radio" name="dest-acc" value="Casa / PB"> Casa / Planta Baja</label>
                                 </div>
                             </div>
                         </div>
