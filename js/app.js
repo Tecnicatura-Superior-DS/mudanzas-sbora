@@ -1,11 +1,25 @@
-// Navigation Scroll Effect
+// Navigation Scroll Effects
 const header = document.querySelector('.header');
+const backToTopBtn = document.getElementById('backToTopBtn');
+
 window.addEventListener('scroll', () => {
+    // Header shadow on scroll
     if (window.scrollY > 50) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
     }
+
+    // Back to top button visibility
+    if (window.scrollY > 300) {
+        backToTopBtn.classList.add('visible');
+    } else {
+        backToTopBtn.classList.remove('visible');
+    }
+});
+
+backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 // Multi-step Form Logic
@@ -33,8 +47,10 @@ function showStep(stepNum) {
     document.getElementById(`step${stepNum}`).classList.add('active');
     currentStep = stepNum;
     updateProgress();
-    // Scroll to top of form
-    document.getElementById('presupuesto').scrollIntoView({ behavior: 'smooth' });
+    
+    // Scroll to form top for context
+    const formTop = document.getElementById('presupuesto').offsetTop - 100;
+    window.scrollTo({ top: formTop, behavior: 'smooth' });
 }
 
 window.nextStep = function(stepNum) {
@@ -72,18 +88,11 @@ window.selectType = function(type) {
     }
 };
 
-window.toggleEst = function(show) {
-    const estField = document.getElementById('dest-escalera-piso');
-    if (show) estField.classList.add('active');
-    else estField.classList.remove('active');
-};
-
 // Counter UI Helpers
 window.inc = function(id) {
     const input = document.getElementById(`inv-${id}`);
     input.value = parseInt(input.value) + 1;
     
-    // Toggle cuerpos select if it's sillones
     if (id === 'sil') {
         document.getElementById('cuerpos-wrap').classList.add('active');
     }
@@ -94,95 +103,74 @@ window.dec = function(id) {
     if (parseInt(input.value) > 0) {
         input.value = parseInt(input.value) - 1;
         
-        // Hide cuerpos select if sillones reaches 0
         if (id === 'sil' && parseInt(input.value) === 0) {
             document.getElementById('cuerpos-wrap').classList.remove('active');
         }
     }
 };
 
-// Form Submission
+// Form Data Collection
+function getFormData() {
+    return {
+        origin: document.getElementById('origin').value,
+        dest: document.getElementById('destination').value,
+        type: document.getElementById('prop-type').value,
+        piso: document.getElementById('piso').value || '0',
+        asc: document.querySelector('input[name="ascensor"]:checked')?.value || 'N/A',
+        amb: document.getElementById('inv-amb').value,
+        tv: document.getElementById('inv-tv').value,
+        sil: document.getElementById('inv-sil').value,
+        silCuerpos: document.getElementById('inv-sil-cuerpos').value,
+        email: document.getElementById('email').value,
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value
+    };
+}
+
+function constructMessage(data, isWhatsApp = true) {
+    let msg = `🚚 SOLICITUD DE PRESUPUESTO - SBORA MUDANZAS\n\n`;
+    msg += `👤 Nombre: ${data.name}\n`;
+    msg += `📧 Email: ${data.email}\n`;
+    msg += `📞 WhatsApp: ${data.phone}\n\n`;
+    msg += `📍 De: ${data.origin}\n📍 Hacia: ${data.dest}\n\n`;
+    msg += `🏠 Origen: ${data.type.toUpperCase()} (Piso ${data.piso}, Ascensor: ${data.asc})\n`;
+    msg += `📦 Inventario:\n`;
+    if (data.amb > 0) msg += `- Ambientes: ${data.amb}\n`;
+    if (data.tv > 0) msg += `- TVs: ${data.tv}\n`;
+    if (data.sil > 0) msg += `- Sillones: ${data.sil} (${data.silCuerpos == 'esq' ? 'Esquinero' : data.silCuerpos + ' Cuerpos'})\n`;
+    
+    return isWhatsApp ? encodeURIComponent(msg) : msg;
+}
+
+// Submissions
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    
-    const origin = document.getElementById('origin').value;
-    const dest = document.getElementById('destination').value;
-    const type = document.getElementById('prop-type').value;
-    const piso = document.getElementById('piso').value || '0';
-    const asc = document.querySelector('input[name="ascensor"]:checked')?.value || 'N/A';
-    
-    // Inventory
-    const amb = document.getElementById('inv-amb').value;
-    const tv = document.getElementById('inv-tv').value;
-    const sil = document.getElementById('inv-sil').value;
-    const silCuerpos = document.getElementById('inv-sil-cuerpos').value;
-    const mueG = document.getElementById('inv-mue-g').value;
-    const mueC = document.getElementById('inv-mue-c').value;
-    const cam1 = document.getElementById('inv-cam-1').value;
-    const cam2 = document.getElementById('inv-cam-2').value;
-    const camS = document.getElementById('inv-cam-s').value;
-    const camC = document.getElementById('inv-cam-c').value;
-    
-    // Checkboxes
-    const electro = [];
-    if (document.getElementById('inv-lav').checked) electro.push('Lavarropas');
-    if (document.getElementById('inv-coc').checked) electro.push('Cocina');
-    if (document.getElementById('inv-hel').checked) electro.push('Heladera');
-    if (document.getElementById('inv-mic').checked) electro.push('Microondas');
-    if (document.getElementById('inv-lv').checked) electro.push('Lavavajilla');
-    
-    // Tech
-    const aa = document.getElementById('inv-aa').value;
-    const ven = document.getElementById('inv-ven').value;
-    const ilu = document.getElementById('inv-ilu').value;
-    
-    // Dest
-    const destAcc = document.querySelector('input[name="dest-acc"]:checked')?.value || 'N/A';
-    const destPisos = document.getElementById('dest-pisos').value || '0';
-    
-    const email = document.getElementById('email').value;
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-
-    // Construct WhatsApp Message
-    let message = `🚚 *SOLICITUD DE PRESUPUESTO - SBORA*\n\n`;
-    message += `👤 *Nombre:* ${name}\n`;
-    message += `📧 *Email:* ${email}\n`;
-    message += `📞 *WhatsApp:* ${phone}\n\n`;
-    message += `📍 *RUTA:*\nDesde: ${origin}\nHacia: ${dest}\n\n`;
-    message += `🏠 *ORIGEN:* ${type.toUpperCase()}\n`;
-    if (type === 'depto') message += `Piso: ${piso} | Ascensor: ${asc}\n`;
-    message += `\n📦 *INVENTARIO:*\n`;
-    if (amb > 0) message += `- Ambientes: ${amb}\n`;
-    if (tv > 0) message += `- TVs: ${tv}\n`;
-    if (sil > 0) message += `- Sillones: ${sil} (${silCuerpos == 'esq' ? 'Esquinero' : silCuerpos + ' Cuerpos'})\n`;
-    if (mueG > 0) message += `- Muebles Gdes (Placard/Alacena): ${mueG}\n`;
-    if (mueC > 0) message += `- Muebles Chicos: ${mueC}\n`;
-    if (cam1 > 0) message += `- Camas 1p: ${cam1}\n`;
-    if (cam2 > 0) message += `- Camas 2p: ${cam2}\n`;
-    if (camS > 0) message += `- Sommier: ${camS}\n`;
-    if (camC > 0) message += `- Cucheta: ${camC}\n`;
-    if (electro.length > 0) message += `- Electro: ${electro.join(', ')}\n`;
-    if (aa) message += `- Aire Acond: ${aa}\n`;
-    if (ven > 0) message += `- Ventiladores: ${ven}\n`;
-    if (ilu) message += `- Iluminación: ${ilu}\n`;
-    
-    message += `\n🏁 *DESTINO:*\nAcceso: ${destAcc.toUpperCase()}\n`;
-    if (destAcc === 'escalera') message += `Pisos: ${destPisos}\n`;
-
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/541156543961?text=${encodedMessage}`;
-
+    const data = getFormData();
+    const whatsappUrl = `https://wa.me/541156543961?text=${constructMessage(data)}`;
     window.open(whatsappUrl, '_blank');
 });
 
-// Mobile Menu Toggle
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
+window.sendByEmail = function() {
+    const data = getFormData();
+    if (!data.email || !data.name) {
+        alert('Por favor completa tus datos de contacto primero.');
+        return;
+    }
+    const subject = encodeURIComponent('Consulta de Mudanza - ' + data.name);
+    const body = encodeURIComponent(constructMessage(data, false));
+    window.location.href = `mailto:info@sboramudanzas.com.ar?subject=${subject}&body=${body}`;
+};
 
-if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        menuToggle.classList.toggle('active');
+// Smooth Scrolling for all internal links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            window.scrollTo({
+                top: target.offsetTop - 70,
+                behavior: 'smooth'
+            });
+        }
     });
-}
+});
