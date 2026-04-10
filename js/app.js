@@ -3,14 +3,12 @@ const header = document.querySelector('.header');
 const backToTopBtn = document.getElementById('backToTopBtn');
 
 window.addEventListener('scroll', () => {
-    // Header shadow on scroll
     if (window.scrollY > 50) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
     }
 
-    // Back to top button visibility
     if (window.scrollY > 300) {
         backToTopBtn.classList.add('visible');
     } else {
@@ -73,11 +71,15 @@ window.prevStep = function(stepNum) {
     showStep(stepNum);
 };
 
-// Selection Handlers
+// Selection Handlers (Step 2)
 window.selectType = function(type) {
     const options = document.querySelectorAll('.type-option');
     options.forEach(opt => opt.classList.remove('selected'));
-    event.currentTarget.classList.add('selected');
+    
+    // Find the clicked element via event
+    const target = event.currentTarget;
+    target.classList.add('selected');
+    
     document.getElementById('prop-type').value = type;
     
     const deptoDetails = document.getElementById('depto-details');
@@ -88,11 +90,12 @@ window.selectType = function(type) {
     }
 };
 
-// Counter UI Helpers
+// Counter Logic (Step 3)
 window.inc = function(id) {
     const input = document.getElementById(`inv-${id}`);
     input.value = parseInt(input.value) + 1;
     
+    // Sillones -> Show bodies select
     if (id === 'sil') {
         document.getElementById('cuerpos-wrap').classList.add('active');
     }
@@ -103,37 +106,21 @@ window.dec = function(id) {
     if (parseInt(input.value) > 0) {
         input.value = parseInt(input.value) - 1;
         
+        // Hide bodies if quantity is 0
         if (id === 'sil' && parseInt(input.value) === 0) {
             document.getElementById('cuerpos-wrap').classList.remove('active');
         }
     }
 };
 
-// Form Data Collection
-function getFormData() {
-    return {
-        origin: document.getElementById('origin').value,
-        dest: document.getElementById('destination').value,
-        type: document.getElementById('prop-type').value,
-        piso: document.getElementById('piso').value || '0',
-        asc: document.querySelector('input[name="ascensor"]:checked')?.value || 'N/A',
-        amb: document.getElementById('inv-amb').value,
-        tv: document.getElementById('inv-tv').value,
-        sil: document.getElementById('inv-sil').value,
-        silCuerpos: document.getElementById('inv-sil-cuerpos').value,
-        email: document.getElementById('email').value,
-        name: document.getElementById('name').value,
-        phone: document.getElementById('phone').value
-    };
-}
-
+// Message Construction
 function constructMessage(data, isWhatsApp = true) {
     let msg = `🚚 SOLICITUD DE PRESUPUESTO - SBORA MUDANZAS\n\n`;
-    msg += `👤 Nombre: ${data.name}\n`;
+    msg += `👤 Cliente: ${data.name}\n`;
     msg += `📧 Email: ${data.email}\n`;
     msg += `📞 WhatsApp: ${data.phone}\n\n`;
     msg += `📍 De: ${data.origin}\n📍 Hacia: ${data.dest}\n\n`;
-    msg += `🏠 Origen: ${data.type.toUpperCase()} (Piso ${data.piso}, Ascensor: ${data.asc})\n`;
+    msg += `🏠 Propiedad: ${data.type.toUpperCase()} (Piso ${data.piso}, Ascensor: ${data.asc})\n`;
     msg += `📦 Inventario:\n`;
     if (data.amb > 0) msg += `- Ambientes: ${data.amb}\n`;
     if (data.tv > 0) msg += `- TVs: ${data.tv}\n`;
@@ -145,23 +132,47 @@ function constructMessage(data, isWhatsApp = true) {
 // Submissions
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const data = getFormData();
+    const data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        origin: document.getElementById('origin').value,
+        dest: document.getElementById('destination').value,
+        type: document.getElementById('prop-type').value,
+        piso: document.getElementById('piso').value || '0',
+        asc: document.querySelector('input[name="ascensor"]:checked')?.value || 'N/A',
+        amb: document.getElementById('inv-amb').value,
+        tv: document.getElementById('inv-tv').value,
+        sil: document.getElementById('inv-sil').value,
+        silCuerpos: document.getElementById('sillones-cuerpos').value
+    };
+    
     const whatsappUrl = `https://wa.me/541156543961?text=${constructMessage(data)}`;
     window.open(whatsappUrl, '_blank');
 });
 
 window.sendByEmail = function() {
-    const data = getFormData();
-    if (!data.email || !data.name) {
-        alert('Por favor completa tus datos de contacto primero.');
-        return;
-    }
+    const data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        origin: document.getElementById('origin').value,
+        dest: document.getElementById('destination').value,
+        type: document.getElementById('prop-type').value,
+        piso: document.getElementById('piso').value || '0',
+        asc: document.querySelector('input[name="ascensor"]:checked')?.value || 'N/A',
+        amb: document.getElementById('inv-amb').value,
+        tv: document.getElementById('inv-tv').value,
+        sil: document.getElementById('inv-sil').value,
+        silCuerpos: document.getElementById('sillones-cuerpos').value
+    };
+    
     const subject = encodeURIComponent('Consulta de Mudanza - ' + data.name);
     const body = encodeURIComponent(constructMessage(data, false));
     window.location.href = `mailto:info@sboramudanzas.com.ar?subject=${subject}&body=${body}`;
 };
 
-// Smooth Scrolling for all internal links
+// Smooth Scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
