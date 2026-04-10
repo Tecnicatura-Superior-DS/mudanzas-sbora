@@ -42,7 +42,7 @@ section { padding: 120px 0; }
     display: flex; 
     align-items: center; 
     position: relative; 
-    background: url('https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=1600') center/cover; 
+    background: url('https://images.unsplash.com/photo-1583508915901-b5f84c1dc01d?q=80&w=1600') center/cover; 
 }
 .hero-overlay { 
     position: absolute; 
