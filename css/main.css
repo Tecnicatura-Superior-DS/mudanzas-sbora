@@ -37,10 +37,24 @@ section { padding: 120px 0; }
 .btn-outline:hover { background: white; color: black; }
 
 /* Hero */
-.hero { height: 100vh; display: flex; align-items: center; position: relative; background: url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200') center/cover; }
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(18, 18, 18, 0.94), rgba(18, 18, 18, 0.3)); }
-.hero h1 { font-size: clamp(2.5rem, 8vw, 4.2rem); line-height: 1.1; margin-bottom: 1.5rem; }
-.hero h1 span { color: var(--accent-color); }
+.hero { 
+    height: 100vh; 
+    display: flex; 
+    align-items: center; 
+    position: relative; 
+    background: url('https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=1600') center/cover; 
+}
+.hero-overlay { 
+    position: absolute; 
+    inset: 0; 
+    background: linear-gradient(to right, rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.2)); 
+    z-index: 5;
+}
+.hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+}
 
 /* Services Grid (Fixed 4 in line on Desktop) */
 .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
