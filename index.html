@@ -183,13 +183,23 @@
                         </div>
                     </div>
 
-                    <!-- Step 3 -->
+                    <!-- Step 3: Inventario Categorizado -->
                     <div class="form-step" id="step3">
-                        <h3 style="margin-bottom: 1rem;">3. Inventario</h3>
-                        <p style="color:var(--text-secondary); margin-bottom:1.5rem; font-size:0.9rem;">Indica las cantidades aproximadas</p>
+                        <h3 style="margin-bottom: 0.5rem;">3. Inventario</h3>
+                        <p style="color:var(--text-secondary); margin-bottom:1.5rem; font-size:0.9rem;">Indica las cantidades aproximadas por ambiente</p>
+                        
                         <div class="inventory-container">
-                            <div class="item-ctrl"><span>Ambientes</span> <div class="counter"><button type="button" onclick="dec('amb')">-</button><input type="number" id="inv-amb" value="0" readonly><button type="button" onclick="inc('amb')">+</button></div></div>
-                            <div class="item-ctrl"><span>TVs</span> <div class="counter"><button type="button" onclick="dec('tv')">-</button><input type="number" id="inv-tv" value="0" readonly><button type="button" onclick="inc('tv')">+</button></div></div>
+                            <!-- Dormitorio -->
+                            <div class="cat-header">🛏️ Dormitorio</div>
+                            <div class="item-ctrl"><span>Camas 1 Plaza</span> <div class="counter"><button type="button" onclick="dec('cam1')">-</button><input type="number" id="inv-cam1" value="0" readonly><button type="button" onclick="inc('cam1')">+</button></div></div>
+                            <div class="item-ctrl"><span>Camas 2 Plazas</span> <div class="counter"><button type="button" onclick="dec('cam2')">-</button><input type="number" id="inv-cam2" value="0" readonly><button type="button" onclick="inc('cam2')">+</button></div></div>
+                            <div class="item-ctrl"><span>Sommiers 1 Plaza</span> <div class="counter"><button type="button" onclick="dec('som1')">-</button><input type="number" id="inv-som1" value="0" readonly><button type="button" onclick="inc('som1')">+</button></div></div>
+                            <div class="item-ctrl"><span>Sommiers 2 Plazas</span> <div class="counter"><button type="button" onclick="dec('som2')">-</button><input type="number" id="inv-som2" value="0" readonly><button type="button" onclick="inc('som2')">+</button></div></div>
+                            <div class="item-ctrl"><span>Mesas de Luz</span> <div class="counter"><button type="button" onclick="dec('mluz')">-</button><input type="number" id="inv-mluz" value="0" readonly><button type="button" onclick="inc('mluz')">+</button></div></div>
+                            <div class="item-ctrl"><span>Placard / Ropero</span> <div class="counter"><button type="button" onclick="dec('plac')">-</button><input type="number" id="inv-plac" value="0" readonly><button type="button" onclick="inc('plac')">+</button></div></div>
+
+                            <!-- Living & Comedor -->
+                            <div class="cat-header">🛋️ Living & Comedor</div>
                             <div class="item-ctrl"><span>Sillones</span> <div class="counter"><button type="button" onclick="dec('sil')">-</button><input type="number" id="inv-sil" value="0" readonly><button type="button" onclick="inc('sil')">+</button></div></div>
                             <div id="cuerpos-wrap" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 1rem;">
                                 <label style="font-size:0.85rem;">Cuerpos del sillón</label>
@@ -200,26 +210,57 @@
                                     <option value="esq">Esquinero</option>
                                 </select>
                             </div>
-                            <div class="item-ctrl"><span>Heladeras</span> <div class="counter"><button type="button" onclick="dec('hel')">-</button><input type="number" id="inv-hel" value="0" readonly><button type="button" onclick="inc('hel')">+</button></div></div>
-                            <div class="item-ctrl"><span>Lavarropas</span> <div class="counter"><button type="button" onclick="dec('lav')">-</button><input type="number" id="inv-lav" value="0" readonly><button type="button" onclick="inc('lav')">+</button></div></div>
-                            <div class="item-ctrl"><span>Mesas</span> <div class="counter"><button type="button" onclick="dec('mes')">-</button><input type="number" id="inv-mes" value="0" readonly><button type="button" onclick="inc('mes')">+</button></div></div>
+                            <div class="item-ctrl"><span>TVs</span> <div class="counter"><button type="button" onclick="dec('tv')">-</button><input type="number" id="inv-tv" value="0" readonly><button type="button" onclick="inc('tv')">+</button></div></div>
+                            <div class="item-ctrl"><span>Mesa Ratona</span> <div class="counter"><button type="button" onclick="dec('rat')">-</button><input type="number" id="inv-rat" value="0" readonly><button type="button" onclick="inc('rat')">+</button></div></div>
+                            <div class="item-ctrl"><span>Mesa Comedor</span> <div class="counter"><button type="button" onclick="dec('mesa')">-</button><input type="number" id="inv-mesa" value="0" readonly><button type="button" onclick="inc('mesa')">+</button></div></div>
                             <div class="item-ctrl"><span>Sillas</span> <div class="counter"><button type="button" onclick="dec('silla')">-</button><input type="number" id="inv-silla" value="0" readonly><button type="button" onclick="inc('silla')">+</button></div></div>
-                            <div class="item-ctrl"><span>Camas</span> <div class="counter"><button type="button" onclick="dec('cam')">-</button><input type="number" id="inv-cam" value="0" readonly><button type="button" onclick="inc('cam')">+</button></div></div>
-                            <div class="item-ctrl"><span>Cajas (aprox)</span> <div class="counter"><button type="button" onclick="dec('caj')">-</button><input type="number" id="inv-caj" value="0" readonly><button type="button" onclick="inc('caj')">+</button></div></div>
+
+                            <!-- Cocina & Lavadero -->
+                            <div class="cat-header">🍳 Cocina & Lavadero</div>
+                            <div class="item-ctrl"><span>Heladera</span> <div class="counter"><button type="button" onclick="dec('hel')">-</button><input type="number" id="inv-hel" value="0" readonly><button type="button" onclick="inc('hel')">+</button></div></div>
+                            <div class="item-ctrl"><span>Lavavajilla</span> <div class="counter"><button type="button" onclick="dec('lava')">-</button><input type="number" id="inv-lava" value="0" readonly><button type="button" onclick="inc('lava')">+</button></div></div>
+                            <div class="item-ctrl"><span>Alacena</span> <div class="counter"><button type="button" onclick="dec('ala')">-</button><input type="number" id="inv-ala" value="0" readonly><button type="button" onclick="inc('ala')">+</button></div></div>
+                            <div class="item-ctrl"><span>Cocina</span> <div class="counter"><button type="button" onclick="dec('coc')">-</button><input type="number" id="inv-coc" value="0" readonly><button type="button" onclick="inc('coc')">+</button></div></div>
+                            <div class="item-ctrl"><span>Microondas</span> <div class="counter"><button type="button" onclick="dec('mic')">-</button><input type="number" id="inv-mic" value="0" readonly><button type="button" onclick="inc('mic')">+</button></div></div>
+                            <div class="item-ctrl"><span>Lavarropas</span> <div class="counter"><button type="button" onclick="dec('lav')">-</button><input type="number" id="inv-lav" value="0" readonly><button type="button" onclick="inc('lav')">+</button></div></div>
+                            <div class="item-ctrl"><span>Secarropas</span> <div class="counter"><button type="button" onclick="dec('sec')">-</button><input type="number" id="inv-sec" value="0" readonly><button type="button" onclick="inc('sec')">+</button></div></div>
+
+                            <!-- Climatización & Otros -->
+                            <div class="cat-header">❄️ Otros</div>
+                            <div class="form-group" style="padding: 1rem 0;">
+                                <label>Aires Acondicionados (Frigorías)</label>
+                                <input type="text" id="inv-aire-txt" placeholder="Ej: 3000, 4500 o 'No tengo'">
+                            </div>
+                            <div class="item-ctrl"><span>Ventilador de Techo</span> <div class="counter"><button type="button" onclick="dec('vent')">-</button><input type="number" id="inv-vent" value="0" readonly><button type="button" onclick="inc('vent')">+</button></div></div>
+                            <div class="item-ctrl"><span>Cantidad de Ambientes</span> <div class="counter"><button type="button" onclick="dec('amb')">-</button><input type="number" id="inv-amb" value="0" readonly><button type="button" onclick="inc('amb')">+</button></div></div>
                         </div>
-                        <div class="form-btns" style="margin-top:2rem;">
+                        
+                        <div class="form-btns">
                             <button type="button" class="btn-outline" onclick="prevStep(2)">Volver</button>
                             <button type="button" class="btn-main" onclick="nextStep(4)">Continuar</button>
                         </div>
                     </div>
 
-                    <!-- Step 4 -->
+                    <!-- Step 4: Contacto y Destino -->
                     <div class="form-step" id="step4">
-                        <h3 style="margin-bottom: 2rem;">4. Contacto</h3>
+                        <h3 style="margin-bottom: 1.5rem;">4. Contacto y Logística</h3>
+                        
+                        <div class="form-section-mini" style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 15px;">
+                            <h4 style="margin-bottom: 1rem; color: var(--accent-color); font-size: 1rem;">Destino Final</h4>
+                            <div class="form-group">
+                                <label>¿El lugar de llegada tiene escalera o ascensor?</label>
+                                <div style="display:flex; gap:2rem; margin-top: 0.5rem;">
+                                    <label style="cursor:pointer;"><input type="radio" name="dest-acc" value="Ascensor" checked> Ascensor</label>
+                                    <label style="cursor:pointer;"><input type="radio" name="dest-acc" value="Escalera"> Escalera</label>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group"><label>Nombre y Apellido</label><input type="text" id="name" required></div>
                         <div class="form-group"><label>Email</label><input type="email" id="email" required></div>
                         <div class="form-group"><label>WhatsApp</label><input type="tel" id="phone" placeholder="+54 9 11 ..." required></div>
-                        <div class="form-btns" style="flex-direction:column; gap:1rem;">
+                        
+                        <div class="form-btns" style="flex-direction:column; gap:1rem; margin-top: 2rem;">
                             <button type="submit" class="btn-main" style="width:100%;">Enviar por WhatsApp</button>
                             <button type="button" class="btn-outline" onclick="sendByEmail()" style="width:100%;">Enviar por Email</button>
                         </div>

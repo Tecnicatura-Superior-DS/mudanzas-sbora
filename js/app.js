@@ -77,7 +77,7 @@ window.selectType = function(type) {
     options.forEach(opt => opt.classList.remove('selected'));
     
     // Find the clicked element via event
-    const target = event.currentTarget || document.getElementById(`type-${type}`);
+    const target = event?.currentTarget || document.getElementById(`type-${type}`);
     if (target) target.classList.add('selected');
     
     document.getElementById('prop-type').value = type;
@@ -117,29 +117,61 @@ function constructMessage(data, isWhatsApp = true) {
     msg += `👤 Cliente: ${data.name}\n`;
     msg += `📧 Email: ${data.email}\n`;
     msg += `📞 WhatsApp: ${data.phone}\n\n`;
-    msg += `📍 De: ${data.origin}\n📍 Hacia: ${data.dest}\n\n`;
+    msg += `📍 De: ${data.origin}\n📍 Hacia: ${data.dest}\n`;
+    msg += `🏢 Detalles Destino: ${data.destAcc}\n\n`;
     msg += `🏠 Propiedad: ${data.type.toUpperCase()} (Piso ${data.piso}, Ascensor: ${data.asc})\n`;
-    msg += `📦 Inventario:\n`;
+    msg += `🏠 Ambientes: ${data.amb}\n\n`;
     
-    const items = {
-        'Ambientes': data.amb,
-        'TVs': data.tv,
-        'Heladeras': data.hel,
-        'Lavarropas': data.lav,
-        'Mesas': data.mes,
-        'Sillas': data.silla,
-        'Camas': data.cam,
-        'Cajas': data.caj
+    msg += `📦 INVENTARIO:\n`;
+    
+    const categories = {
+        "Dormitorio": {
+            "Cama 1P": data.cam1,
+            "Cama 2P": data.cam2,
+            "Sommier 1P": data.som1,
+            "Sommier 2P": data.som2,
+            "Mesa Luz": data.mluz,
+            "Placard": data.plac
+        },
+        "Living & Comedor": {
+            "TVs": data.tv,
+            "Mesa Ratona": data.rat,
+            "Mesa Comedor": data.mesa,
+            "Sillas": data.silla
+        },
+        "Cocina & Lavadero": {
+            "Heladera": data.hel,
+            "Lavavajilla": data.lava,
+            "Alacena": data.ala,
+            "Cocina": data.coc,
+            "Microondas": data.mic,
+            "Lavarropas": data.lav,
+            "Secarropas": data.sec
+        }
     };
-    
-    Object.keys(items).forEach(key => {
-        if (items[key] > 0) msg += `- ${key}: ${items[key]}\n`;
+
+    Object.keys(categories).forEach(cat => {
+        let catText = "";
+        Object.keys(categories[cat]).forEach(item => {
+            if (categories[cat][item] > 0) {
+                catText += `- ${item}: ${categories[cat][item]}\n`;
+            }
+        });
+        if (catText) {
+            msg += `\n[${cat}]\n${catText}`;
+        }
     });
-    
+
     if (data.sil > 0) {
-        msg += `- Sillones: ${data.sil} (${data.silCuerpos == 'esq' ? 'Esquinero' : data.silCuerpos + ' Cuerpos'})\n`;
+        msg += `\n- Sillones: ${data.sil} (${data.silCuerpos == 'esq' ? 'Esquinero' : data.silCuerpos + ' Cuerpos'})\n`;
     }
     
+    if (data.aireTxt && data.aireTxt.trim() !== "") {
+        msg += `\n❄️ Aires (Frigorías): ${data.aireTxt}\n`;
+    }
+    
+    if (data.vent > 0) msg += `- Ventiladores de Techo: ${data.vent}\n`;
+
     return isWhatsApp ? encodeURIComponent(msg) : msg;
 }
 
@@ -152,19 +184,32 @@ form.addEventListener('submit', (e) => {
         phone: document.getElementById('phone').value,
         origin: document.getElementById('origin').value,
         dest: document.getElementById('destination').value,
+        destAcc: document.querySelector('input[name="dest-acc"]:checked')?.value || 'N/A',
         type: document.getElementById('prop-type').value,
         piso: document.getElementById('piso').value || '0',
         asc: document.querySelector('input[name="ascensor"]:checked')?.value || 'N/A',
         amb: document.getElementById('inv-amb').value,
+        cam1: document.getElementById('inv-cam1').value,
+        cam2: document.getElementById('inv-cam2').value,
+        som1: document.getElementById('inv-som1').value,
+        som2: document.getElementById('inv-som2').value,
+        mluz: document.getElementById('inv-mluz').value,
+        plac: document.getElementById('inv-plac').value,
         tv: document.getElementById('inv-tv').value,
-        sil: document.getElementById('inv-sil').value,
-        silCuerpos: document.getElementById('sillones-cuerpos').value,
-        hel: document.getElementById('inv-hel').value,
-        lav: document.getElementById('inv-lav').value,
-        mes: document.getElementById('inv-mes').value,
+        rat: document.getElementById('inv-rat').value,
+        mesa: document.getElementById('inv-mesa').value,
         silla: document.getElementById('inv-silla').value,
-        cam: document.getElementById('inv-cam').value,
-        caj: document.getElementById('inv-caj').value
+        hel: document.getElementById('inv-hel').value,
+        lava: document.getElementById('inv-lava').value,
+        ala: document.getElementById('inv-ala').value,
+        coc: document.getElementById('inv-coc').value,
+        mic: document.getElementById('inv-mic').value,
+        lav: document.getElementById('inv-lav').value,
+        sec: document.getElementById('inv-sec').value,
+        aireTxt: document.getElementById('inv-aire-txt').value,
+        vent: document.getElementById('inv-vent').value,
+        sil: document.getElementById('inv-sil').value,
+        silCuerpos: document.getElementById('sillones-cuerpos').value
     };
     
     const whatsappUrl = `https://wa.me/541156543961?text=${constructMessage(data)}`;
@@ -172,28 +217,42 @@ form.addEventListener('submit', (e) => {
 });
 
 window.sendByEmail = function() {
+    // Collect same data as above
     const data = {
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
         phone: document.getElementById('phone').value,
         origin: document.getElementById('origin').value,
         dest: document.getElementById('destination').value,
+        destAcc: document.querySelector('input[name="dest-acc"]:checked')?.value || 'N/A',
         type: document.getElementById('prop-type').value,
         piso: document.getElementById('piso').value || '0',
         asc: document.querySelector('input[name="ascensor"]:checked')?.value || 'N/A',
         amb: document.getElementById('inv-amb').value,
+        cam1: document.getElementById('inv-cam1').value,
+        cam2: document.getElementById('inv-cam2').value,
+        som1: document.getElementById('inv-som1').value,
+        som2: document.getElementById('inv-som2').value,
+        mluz: document.getElementById('inv-mluz').value,
+        plac: document.getElementById('inv-plac').value,
         tv: document.getElementById('inv-tv').value,
-        sil: document.getElementById('inv-sil').value,
-        silCuerpos: document.getElementById('sillones-cuerpos').value,
-        hel: document.getElementById('inv-hel').value,
-        lav: document.getElementById('inv-lav').value,
-        mes: document.getElementById('inv-mes').value,
+        rat: document.getElementById('inv-rat').value,
+        mesa: document.getElementById('inv-mesa').value,
         silla: document.getElementById('inv-silla').value,
-        cam: document.getElementById('inv-cam').value,
-        caj: document.getElementById('inv-caj').value
+        hel: document.getElementById('inv-hel').value,
+        lava: document.getElementById('inv-lava').value,
+        ala: document.getElementById('inv-ala').value,
+        coc: document.getElementById('inv-coc').value,
+        mic: document.getElementById('inv-mic').value,
+        lav: document.getElementById('inv-lav').value,
+        sec: document.getElementById('inv-sec').value,
+        aireTxt: document.getElementById('inv-aire-txt').value,
+        vent: document.getElementById('inv-vent').value,
+        sil: document.getElementById('inv-sil').value,
+        silCuerpos: document.getElementById('sillones-cuerpos').value
     };
     
-    const subject = encodeURIComponent('Consulta de Mudanza - ' + data.name);
+    const subject = encodeURIComponent('Consulta de Mudanza Maestro - ' + data.name);
     const body = encodeURIComponent(constructMessage(data, false));
     window.location.href = `mailto:info@sboramudanzas.com.ar?subject=${subject}&body=${body}`;
 };

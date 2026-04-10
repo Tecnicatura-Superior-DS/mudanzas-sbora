@@ -102,7 +102,10 @@ input, select { width: 100% !important; padding: 1.1rem; background: var(--bg-co
 .type-option.selected { border-color: var(--accent-color); background: rgba(211, 47, 47, 0.1); box-shadow: 0 0 20px rgba(211, 47, 47, 0.1); }
 .type-option div { font-size: 2.5rem; margin-bottom: 0.5rem; }
 
-.inventory-container { max-height: 400px; overflow-y: auto; padding-right: 1rem; margin-bottom: 2rem; }
+.cat-header { background: rgba(211, 47, 47, 0.1); color: var(--accent-color); padding: 0.8rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: 0.95rem; margin-top: 2rem; margin-bottom: 1rem; border-left: 4px solid var(--accent-color); }
+.cat-header:first-of-type { margin-top: 0; }
+
+.inventory-container { max-height: 450px; overflow-y: auto; padding-right: 1.2rem; margin-bottom: 2rem; }
 /* Estilo para barra de scroll personalizada (opcional pero premium) */
 .inventory-container::-webkit-scrollbar { width: 6px; }
 .inventory-container::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
