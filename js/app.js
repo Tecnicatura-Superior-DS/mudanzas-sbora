@@ -1,32 +1,4 @@
-// Theme Toggle
-const themeToggle = document.getElementById('themeToggle');
-const sunIcon = document.getElementById('sunIcon');
-const moonIcon = document.getElementById('moonIcon');
 
-function setTheme(isLight) {
-    if (isLight) {
-        document.body.classList.add('light-mode');
-        if(sunIcon) sunIcon.style.display = 'block';
-        if(moonIcon) moonIcon.style.display = 'none';
-        localStorage.setItem('sbora-theme', 'light');
-    } else {
-        document.body.classList.remove('light-mode');
-        if(sunIcon) sunIcon.style.display = 'none';
-        if(moonIcon) moonIcon.style.display = 'block';
-        localStorage.setItem('sbora-theme', 'dark');
-    }
-}
-
-if (localStorage.getItem('sbora-theme') === 'light') {
-    setTheme(true);
-}
-
-if(themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        const isLight = !document.body.classList.contains('light-mode');
-        setTheme(isLight);
-    });
-}
 
 // FAQ Accordion
 document.querySelectorAll('.faq-header').forEach(header => {
@@ -102,6 +74,13 @@ window.nextStep = function(stepNum) {
             return;
         }
     }
+    if (currentStep === 3) {
+        const ambientes = parseInt(document.getElementById('inv-amb').value);
+        if (ambientes === 0 || isNaN(ambientes)) {
+            alert('Por favor indica la cantidad de ambientes (debe ser mayor a 0).');
+            return;
+        }
+    }
     showStep(stepNum);
 };
 
@@ -112,10 +91,11 @@ window.prevStep = function(stepNum) {
 // Selection Handlers (Step 2)
 window.selectType = function(type) {
     const options = document.querySelectorAll('.type-option');
-    options.forEach(opt => opt.classList.remove('selected'));
+    options.forEach(opt => {
+        if(opt.id.startsWith('type-')) opt.classList.remove('selected')
+    });
     
-    // Find the clicked element via event
-    const target = event?.currentTarget || document.getElementById(`type-${type}`);
+    const target = document.getElementById(`type-${type}`);
     if (target) target.classList.add('selected');
     
     document.getElementById('prop-type').value = type;
@@ -125,6 +105,24 @@ window.selectType = function(type) {
         deptoDetails.classList.add('active');
     } else {
         deptoDetails.classList.remove('active');
+    }
+};
+
+// Selection Handlers (Step 4 Destino)
+window.selectDestType = function(type) {
+    const options = document.querySelectorAll('#step4 .type-option');
+    options.forEach(opt => opt.classList.remove('selected'));
+    
+    const target = document.getElementById(`dest-type-${type}`);
+    if (target) target.classList.add('selected');
+    
+    document.getElementById('dest-prop-type').value = type;
+    
+    const destDeptoDetails = document.getElementById('dest-depto-details');
+    if (type === 'depto') {
+        destDeptoDetails.style.display = 'block';
+    } else {
+        destDeptoDetails.style.display = 'none';
     }
 };
 
@@ -210,8 +208,12 @@ function constructMessage(data, isWhatsApp = true) {
     msg += `📧 Email: ${data.email}\n`;
     msg += `📞 WhatsApp: ${data.phone}\n\n`;
     msg += `📍 De: ${data.origin}\n📍 Hacia: ${data.dest}\n`;
-    msg += `🏢 Detalles Destino: ${data.destAcc}\n\n`;
-    msg += `🏠 Propiedad: ${data.type.toUpperCase()} (Piso ${data.piso}, Ascensor: ${data.asc})\n`;
+    msg += `🏢 Tipo Destino: ${data.destType ? data.destType.toUpperCase() : 'N/A'}`;
+    if (data.destType === 'depto') msg += ` (${data.destAcc})\n\n`;
+    else msg += `\n\n`;
+    msg += `🏠 Propiedad Origen: ${data.type.toUpperCase()}`;
+    if (data.type === 'depto') msg += ` (Piso ${data.piso}, Ascensor: ${data.asc})\n`;
+    else msg += `\n`;
     msg += `🏠 Ambientes: ${data.amb}\n\n`;
     
     msg += `📦 INVENTARIO:\n`;
@@ -281,6 +283,7 @@ function collectData() {
         phone: document.getElementById('phone').value,
         origin: document.getElementById('origin').value,
         dest: document.getElementById('destination').value,
+        destType: document.getElementById('dest-prop-type').value,
         destAcc: document.querySelector('input[name="dest-acc"]:checked')?.value || 'N/A',
         type: document.getElementById('prop-type').value,
         piso: document.getElementById('piso').value || '0',
@@ -315,12 +318,20 @@ function collectData() {
 // Submissions
 form.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (!document.getElementById('dest-prop-type').value) {
+        alert("Por favor indica el Tipo de Propiedad de Llegada (Casa o Depto).");
+        return;
+    }
     const data = collectData();
     const whatsappUrl = `https://wa.me/541156543961?text=${constructMessage(data)}`;
     window.open(whatsappUrl, '_blank');
 });
 
 window.sendByEmail = function() {
+    if (!document.getElementById('dest-prop-type').value) {
+        alert("Por favor indica el Tipo de Propiedad de Llegada (Casa o Depto).");
+        return;
+    }
     const data = collectData();
     
     const subject = encodeURIComponent('Consulta de Mudanza Maestro - ' + data.name);
