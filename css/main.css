@@ -11,7 +11,7 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
     /* Responsive Spacing */
-    --section-padding: 60px 0;
+    --section-padding: 100px 0;
     --header-height: 70px;
     --dock-height: 70px;
 }
@@ -173,7 +173,7 @@ input, select, textarea { width: 100%; padding: 1rem; background: var(--bg-color
 
 @media (min-width: 768px) {
     :root {
-        --section-padding: 100px 0;
+        --section-padding: 140px 0;
         --header-height: 80px;
     }
     body { font-size: 1.1rem; }
