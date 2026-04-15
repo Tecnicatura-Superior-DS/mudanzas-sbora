@@ -102,9 +102,9 @@ window.selectType = function(type) {
     
     const deptoDetails = document.getElementById('depto-details');
     if (type === 'depto') {
-        deptoDetails.classList.add('active');
+        deptoDetails.style.display = 'block';
     } else {
-        deptoDetails.classList.remove('active');
+        deptoDetails.style.display = 'none';
     }
 };
 
