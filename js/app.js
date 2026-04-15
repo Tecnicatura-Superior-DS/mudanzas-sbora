@@ -257,16 +257,47 @@ window.sendByEmail = function() {
     window.location.href = `mailto:info@sboramudanzas.com.ar?subject=${subject}&body=${body}`;
 };
 
-// Smooth Scrolling
+// Smooth Scrolling with dynamic offset
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const target = document.querySelector(targetId);
         if (target) {
+            const offset = window.innerWidth < 1024 ? 80 : 100;
             window.scrollTo({
-                top: target.offsetTop - 70,
+                top: target.offsetTop - offset,
                 behavior: 'smooth'
             });
         }
     });
 });
+
+// Scroll Spy for Mobile Dock
+const dockItems = document.querySelectorAll('.dock-item');
+const sections = document.querySelectorAll('section[id]');
+
+function scrollSpy() {
+    if (window.innerWidth >= 1024) return;
+    
+    let current = "";
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - 150)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    dockItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('href').includes(current)) {
+            item.classList.add('active');
+        }
+    });
+}
+
+window.addEventListener('scroll', scrollSpy);
+window.addEventListener('load', scrollSpy);
