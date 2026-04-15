@@ -1,3 +1,41 @@
+// Theme Toggle
+const themeToggle = document.getElementById('themeToggle');
+const sunIcon = document.getElementById('sunIcon');
+const moonIcon = document.getElementById('moonIcon');
+
+function setTheme(isLight) {
+    if (isLight) {
+        document.body.classList.add('light-mode');
+        if(sunIcon) sunIcon.style.display = 'block';
+        if(moonIcon) moonIcon.style.display = 'none';
+        localStorage.setItem('sbora-theme', 'light');
+    } else {
+        document.body.classList.remove('light-mode');
+        if(sunIcon) sunIcon.style.display = 'none';
+        if(moonIcon) moonIcon.style.display = 'block';
+        localStorage.setItem('sbora-theme', 'dark');
+    }
+}
+
+if (localStorage.getItem('sbora-theme') === 'light') {
+    setTheme(true);
+}
+
+if(themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const isLight = !document.body.classList.contains('light-mode');
+        setTheme(isLight);
+    });
+}
+
+// FAQ Accordion
+document.querySelectorAll('.faq-header').forEach(header => {
+    header.addEventListener('click', () => {
+        const item = header.parentElement;
+        item.classList.toggle('active');
+    });
+});
+
 // Navigation Scroll Effects
 const header = document.querySelector('.header');
 const backToTopBtn = document.getElementById('backToTopBtn');
@@ -90,26 +128,80 @@ window.selectType = function(type) {
     }
 };
 
-// Counter Logic (Step 3)
+// Counter Logic (Step 3) & Dynamic Opts
+function renderDynamicOpts(id, count) {
+    const container = document.getElementById(`din-${id}`);
+    if (!container) return;
+    
+    if (count === 0) {
+        container.style.display = 'none';
+        container.innerHTML = '';
+        return;
+    }
+    
+    container.style.display = 'flex';
+    
+    // Save current values to preserve them during re-render
+    const currentSelects = container.querySelectorAll(`.din-sel-${id}`);
+    const values = Array.from(currentSelects).map(s => s.value);
+    
+    let html = '';
+    for (let i = 1; i <= count; i++) {
+        html += `<div style="display:flex; justify-content:space-between; align-items:center;">`;
+        if (id === 'sil') {
+            html += `<label style="font-size:0.85rem;">Sillón ${i}</label>
+                     <select class="din-sel-${id}" style="width:140px; padding:0.4rem; font-size:0.85rem; border-radius:6px; background:var(--bg-color); color:var(--text-primary); border:1px solid var(--glass-border);">
+                         <option value="1">1 Cuerpo</option>
+                         <option value="2">2 Cuerpos</option>
+                         <option value="3">3 Cuerpos</option>
+                         <option value="esq">Esquinero</option>
+                     </select>`;
+        } else if (id === 'plac') {
+            html += `<label style="font-size:0.85rem;">Placard ${i}</label>
+                     <select class="din-sel-${id}" style="width:140px; padding:0.4rem; font-size:0.85rem; border-radius:6px; background:var(--bg-color); color:var(--text-primary); border:1px solid var(--glass-border);">
+                         <option value="1">1 Puerta</option>
+                         <option value="2">2 Puertas</option>
+                         <option value="3">3 Puertas</option>
+                         <option value="4">4 Puertas</option>
+                         <option value="5">5 Puertas</option>
+                         <option value="6">6 Puertas</option>
+                     </select>`;
+        } else if (id === 'aire') {
+            html += `<label style="font-size:0.85rem;">Aire ${i} (Frig.)</label>
+                     <input type="number" class="din-sel-${id}" placeholder="Ej: 3000" style="width:140px; padding:0.4rem; font-size:0.85rem; border-radius:6px; background:var(--bg-color); color:var(--text-primary); border:1px solid var(--glass-border);">`;
+        }
+        html += `</div>`;
+    }
+    
+    container.innerHTML = html;
+    
+    // Restore values
+    const newSelects = container.querySelectorAll(`.din-sel-${id}`);
+    newSelects.forEach((sel, idx) => {
+        if (values[idx]) sel.value = values[idx];
+    });
+}
+
 window.inc = function(id) {
     const input = document.getElementById(`inv-${id}`);
-    input.value = parseInt(input.value) + 1;
-    
-    if (id === 'sil') {
-        document.getElementById('cuerpos-wrap').classList.add('active');
-    }
+    const newVal = parseInt(input.value) + 1;
+    input.value = newVal;
+    renderDynamicOpts(id, newVal);
 };
 
 window.dec = function(id) {
     const input = document.getElementById(`inv-${id}`);
     if (parseInt(input.value) > 0) {
-        input.value = parseInt(input.value) - 1;
-        
-        if (id === 'sil' && parseInt(input.value) === 0) {
-            document.getElementById('cuerpos-wrap').classList.remove('active');
-        }
+        const newVal = parseInt(input.value) - 1;
+        input.value = newVal;
+        renderDynamicOpts(id, newVal);
     }
 };
+
+function getDynamicValues(id) {
+    const els = document.querySelectorAll(`.din-sel-${id}`);
+    return Array.from(els).map(e => e.value);
+}
 
 // Message Construction
 function constructMessage(data, isWhatsApp = true) {
@@ -154,7 +246,12 @@ function constructMessage(data, isWhatsApp = true) {
         let catText = "";
         Object.keys(categories[cat]).forEach(item => {
             if (categories[cat][item] > 0) {
-                catText += `- ${item}: ${categories[cat][item]}\n`;
+                if (item === "Placard" && data.placValues && data.placValues.length > 0) {
+                    let pVals = data.placValues.map(v => `${v} Ptas`).join(', ');
+                    catText += `- Placards: ${categories[cat][item]} (${pVals})\n`;
+                } else {
+                    catText += `- ${item}: ${categories[cat][item]}\n`;
+                }
             }
         });
         if (catText) {
@@ -162,12 +259,14 @@ function constructMessage(data, isWhatsApp = true) {
         }
     });
 
-    if (data.sil > 0) {
-        msg += `\n- Sillones: ${data.sil} (${data.silCuerpos == 'esq' ? 'Esquinero' : data.silCuerpos + ' Cuerpos'})\n`;
+    if (data.sil > 0 && data.silValues && data.silValues.length > 0) {
+        let sVals = data.silValues.map(v => v === 'esq' ? 'Esquinero' : `${v} Cuerpos`).join(', ');
+        msg += `\n- Sillones: ${data.sil} (${sVals})\n`;
     }
     
-    if (data.aireTxt && data.aireTxt.trim() !== "") {
-        msg += `\n❄️ Aires (Frigorías): ${data.aireTxt}\n`;
+    if (data.aire > 0) {
+        let aVals = data.aireValues && data.aireValues.length > 0 ? data.aireValues.map(v => v ? `${v} fig` : '?').join(', ') : '';
+        msg += `\n❄️ Aires Acond.: ${data.aire} (${aVals})\n`;
     }
     
     if (data.vent > 0) msg += `- Ventiladores de Techo: ${data.vent}\n`;
@@ -175,10 +274,8 @@ function constructMessage(data, isWhatsApp = true) {
     return isWhatsApp ? encodeURIComponent(msg) : msg;
 }
 
-// Submissions
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const data = {
+function collectData() {
+    return {
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
         phone: document.getElementById('phone').value,
@@ -195,6 +292,7 @@ form.addEventListener('submit', (e) => {
         som2: document.getElementById('inv-som2').value,
         mluz: document.getElementById('inv-mluz').value,
         plac: document.getElementById('inv-plac').value,
+        placValues: getDynamicValues('plac'),
         tv: document.getElementById('inv-tv').value,
         rat: document.getElementById('inv-rat').value,
         mesa: document.getElementById('inv-mesa').value,
@@ -206,51 +304,24 @@ form.addEventListener('submit', (e) => {
         mic: document.getElementById('inv-mic').value,
         lav: document.getElementById('inv-lav').value,
         sec: document.getElementById('inv-sec').value,
-        aireTxt: document.getElementById('inv-aire-txt').value,
-        vent: document.getElementById('inv-vent').value,
+        aire: document.getElementById('inv-aire') ? document.getElementById('inv-aire').value : 0,
+        aireValues: getDynamicValues('aire'),
+        vent: document.getElementById('inv-vent') ? document.getElementById('inv-vent').value : 0,
         sil: document.getElementById('inv-sil').value,
-        silCuerpos: document.getElementById('sillones-cuerpos').value
+        silValues: getDynamicValues('sil')
     };
-    
+}
+
+// Submissions
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = collectData();
     const whatsappUrl = `https://wa.me/541156543961?text=${constructMessage(data)}`;
     window.open(whatsappUrl, '_blank');
 });
 
 window.sendByEmail = function() {
-    // Collect same data as above
-    const data = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        origin: document.getElementById('origin').value,
-        dest: document.getElementById('destination').value,
-        destAcc: document.querySelector('input[name="dest-acc"]:checked')?.value || 'N/A',
-        type: document.getElementById('prop-type').value,
-        piso: document.getElementById('piso').value || '0',
-        asc: document.querySelector('input[name="ascensor"]:checked')?.value || 'N/A',
-        amb: document.getElementById('inv-amb').value,
-        cam1: document.getElementById('inv-cam1').value,
-        cam2: document.getElementById('inv-cam2').value,
-        som1: document.getElementById('inv-som1').value,
-        som2: document.getElementById('inv-som2').value,
-        mluz: document.getElementById('inv-mluz').value,
-        plac: document.getElementById('inv-plac').value,
-        tv: document.getElementById('inv-tv').value,
-        rat: document.getElementById('inv-rat').value,
-        mesa: document.getElementById('inv-mesa').value,
-        silla: document.getElementById('inv-silla').value,
-        hel: document.getElementById('inv-hel').value,
-        lava: document.getElementById('inv-lava').value,
-        ala: document.getElementById('inv-ala').value,
-        coc: document.getElementById('inv-coc').value,
-        mic: document.getElementById('inv-mic').value,
-        lav: document.getElementById('inv-lav').value,
-        sec: document.getElementById('inv-sec').value,
-        aireTxt: document.getElementById('inv-aire-txt').value,
-        vent: document.getElementById('inv-vent').value,
-        sil: document.getElementById('inv-sil').value,
-        silCuerpos: document.getElementById('sillones-cuerpos').value
-    };
+    const data = collectData();
     
     const subject = encodeURIComponent('Consulta de Mudanza Maestro - ' + data.name);
     const body = encodeURIComponent(constructMessage(data, false));

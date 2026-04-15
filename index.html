@@ -21,19 +21,23 @@
         <nav class="nav container">
             <a href="#" class="logo">
                 <svg width="65" height="40" viewBox="0 0 140 100" class="logo-svg">
-                    <text x="0" y="70" font-size="95" fill="white" font-family="Arial" font-weight="bold" dominant-baseline="baseline">S</text>
-                    <text x="70" y="70" font-size="60" fill="white" font-family="Arial" font-weight="bold" dominant-baseline="baseline">m</text>
+                    <text x="0" y="70" font-size="95" fill="currentColor" font-family="Arial" font-weight="bold" dominant-baseline="baseline">S</text>
+                    <text x="70" y="70" font-size="60" fill="currentColor" font-family="Arial" font-weight="bold" dominant-baseline="baseline">m</text>
                 </svg>
                 <span>Sbora Mudanzas</span>
             </a>
-            <ul class="nav-links desktop-only">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#bauleras">Bauleras</a></li>
-                <li><a href="#guardamuebles">Guardamuebles</a></li>
-                <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#presupuesto" class="btn-primary">Presupuesto</a></li>
-            </ul>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo claro/oscuro">
+                    <svg id="moonIcon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg id="sunIcon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                </button>
+                <ul class="nav-links desktop-only">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#presupuesto" class="btn-primary">Presupuesto</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
 
@@ -50,6 +54,14 @@
             </div>
         </div>
     </section>
+
+    <!-- Trust Badges -->
+    <div class="trust-badges container">
+        <div class="badge-item"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Seguro de Carga</div>
+        <div class="badge-item"><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg> Rastreo Satelital</div>
+        <div class="badge-item"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg> Embalaje Premium</div>
+        <div class="badge-item"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> Personal Capacitado</div>
+    </div>
 
         <!-- Servicios Integrales (Fixed 4 in line) -->
         <section id="servicios" class="container">
@@ -136,6 +148,33 @@
             </div>
         </section>
 
+        <!-- Cómo Funciona (Timeline) -->
+        <section id="proceso" class="container">
+            <div class="section-header">
+                <h2>¿Cómo funciona?</h2>
+                <div class="underline"></div>
+                <blockquote>Un proceso diseñado para tu total tranquilidad.</blockquote>
+            </div>
+            <div class="timeline-grid">
+                <div class="timeline-card" data-step="1">
+                    <h4 style="margin-bottom:0.5rem; color:var(--accent-color);">1. Cotización Fácil</h4>
+                    <p style="font-size:0.9rem; color:var(--text-secondary);">Completa el formulario en 2 minutos y obtén un presupuesto detallado sin sorpresas.</p>
+                </div>
+                <div class="timeline-card" data-step="2">
+                    <h4 style="margin-bottom:0.5rem; color:var(--accent-color);">2. Embalaje Seguro</h4>
+                    <p style="font-size:0.9rem; color:var(--text-secondary);">Nuestro equipo se encarga de proteger todo con materiales de primera calidad.</p>
+                </div>
+                <div class="timeline-card" data-step="3">
+                    <h4 style="margin-bottom:0.5rem; color:var(--accent-color);">3. Traslado Monitoreado</h4>
+                    <p style="font-size:0.9rem; color:var(--text-secondary);">Vehículos propios con seguimiento satelital durante todo el trayecto.</p>
+                </div>
+                <div class="timeline-card" data-step="4">
+                    <h4 style="margin-bottom:0.5rem; color:var(--accent-color);">4. Nuevo Hogar</h4>
+                    <p style="font-size:0.9rem; color:var(--text-secondary);">Descargamos y acomodamos cada mueble donde nos indiques. Mudanza finalizada con éxito.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Presupuesto Multi-Step -->
         <section id="presupuesto" class="container" style="margin-top: 100px; margin-bottom: 120px;">
             <div class="quote-card">
@@ -151,9 +190,17 @@
 
                     <!-- Step 1 -->
                     <div class="form-step active" id="step1">
-                        <h3 style="margin-bottom: 2rem;">1. Ruta del Traslado</h3>
-                        <div class="form-group"><label>Origen</label><input type="text" id="origin" placeholder="Barrio / Ciudad" required></div>
-                        <div class="form-group"><label>Destino</label><input type="text" id="destination" placeholder="Barrio / Ciudad" required></div>
+                        <h3 style="margin-bottom: 1.5rem;">1. Ruta del Traslado</h3>
+                        <div class="route-sketch">
+                            <div class="route-node">
+                                <label>Origen</label>
+                                <input type="text" id="origin" placeholder="Barrio / Ciudad" required>
+                            </div>
+                            <div class="route-node" style="margin-top: 1rem;">
+                                <label>Destino</label>
+                                <input type="text" id="destination" placeholder="Barrio / Ciudad" required>
+                            </div>
+                        </div>
                         <div class="form-btns"><button type="button" class="btn-main" onclick="nextStep(2)">Continuar</button></div>
                     </div>
 
@@ -202,19 +249,13 @@
                             <div class="item-ctrl"><span>Sommiers 2 Plazas</span> <div class="counter"><button type="button" onclick="dec('som2')">-</button><input type="number" id="inv-som2" value="0" readonly><button type="button" onclick="inc('som2')">+</button></div></div>
                             <div class="item-ctrl"><span>Mesas de Luz</span> <div class="counter"><button type="button" onclick="dec('mluz')">-</button><input type="number" id="inv-mluz" value="0" readonly><button type="button" onclick="inc('mluz')">+</button></div></div>
                             <div class="item-ctrl"><span>Placard / Ropero</span> <div class="counter"><button type="button" onclick="dec('plac')">-</button><input type="number" id="inv-plac" value="0" readonly><button type="button" onclick="inc('plac')">+</button></div></div>
+                            <div id="din-plac" class="dynamic-sub-opts" style="display:none;"></div>
 
                             <!-- Living & Comedor -->
                             <div class="cat-header">🛋️ Living & Comedor</div>
                             <div class="item-ctrl"><span>Sillones</span> <div class="counter"><button type="button" onclick="dec('sil')">-</button><input type="number" id="inv-sil" value="0" readonly><button type="button" onclick="inc('sil')">+</button></div></div>
-                            <div id="cuerpos-wrap" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 1rem;">
-                                <label style="font-size:0.85rem;">Cuerpos del sillón</label>
-                                <select id="sillones-cuerpos" style="width:100%; padding:0.8rem; background:var(--bg-color); color:white; border:1px solid var(--glass-border); border-radius:10px;">
-                                    <option value="1">1 Cuerpo</option>
-                                    <option value="2">2 Cuerpos</option>
-                                    <option value="3">3 Cuerpos</option>
-                                    <option value="esq">Esquinero</option>
-                                </select>
-                            </div>
+                            <div id="din-sil" class="dynamic-sub-opts" style="display:none;"></div>
+                            
                             <div class="item-ctrl"><span>TVs</span> <div class="counter"><button type="button" onclick="dec('tv')">-</button><input type="number" id="inv-tv" value="0" readonly><button type="button" onclick="inc('tv')">+</button></div></div>
                             <div class="item-ctrl"><span>Mesa Ratona</span> <div class="counter"><button type="button" onclick="dec('rat')">-</button><input type="number" id="inv-rat" value="0" readonly><button type="button" onclick="inc('rat')">+</button></div></div>
                             <div class="item-ctrl"><span>Mesa Comedor</span> <div class="counter"><button type="button" onclick="dec('mesa')">-</button><input type="number" id="inv-mesa" value="0" readonly><button type="button" onclick="inc('mesa')">+</button></div></div>
@@ -232,10 +273,9 @@
 
                             <!-- Climatización & Otros -->
                             <div class="cat-header">❄️ Otros</div>
-                            <div class="form-group" style="padding: 1rem 0;">
-                                <label>Aires Acondicionados (Frigorías)</label>
-                                <input type="text" id="inv-aire-txt" placeholder="Ej: 3000, 4500 o 'No tengo'">
-                            </div>
+                            <div class="item-ctrl"><span>Aires Acondicionados</span> <div class="counter"><button type="button" onclick="dec('aire')">-</button><input type="number" id="inv-aire" value="0" readonly><button type="button" onclick="inc('aire')">+</button></div></div>
+                            <div id="din-aire" class="dynamic-sub-opts" style="display:none;"></div>
+
                             <div class="item-ctrl"><span>Ventilador de Techo</span> <div class="counter"><button type="button" onclick="dec('vent')">-</button><input type="number" id="inv-vent" value="0" readonly><button type="button" onclick="inc('vent')">+</button></div></div>
                         </div>
                         
@@ -271,6 +311,67 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </section>
+
+        <!-- Preguntas Frecuentes -->
+        <section id="faq" class="container">
+            <div class="section-header">
+                <h2>Preguntas Frecuentes</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-header">¿Con cuánta anticipación debo reservar? <span>+</span></div>
+                    <div class="faq-content"><br>Recomendamos al menos 10 a 15 días de anticipación, especialmente si tu mudanza es a fin de mes, ya que suele ser la fecha de mayor demanda.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header">¿Proveen cajas y material de embalaje? <span>+</span></div>
+                    <div class="faq-content"><br>Sí, proveemos cajas de diferentes tamaños, roperos de cartón para ropa colgada, cinta, plástico burbuja y film stretch. Todo está incluido en nuestro servicio de embalaje premium.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header">¿Qué incluye el seguro de carga? <span>+</span></div>
+                    <div class="faq-content"><br>Absolutamente todos sus bienes están cubiertos contra siniestros, robos o daños durante el transporte gracias a nuestra póliza de seguro integral.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonios / Reseñas -->
+        <section id="testimonios" class="container" style="background: rgba(255,255,255,0.02); padding: 4rem 1.5rem; border-radius: 20px;">
+            <div class="section-header">
+                <h2>Lo que dicen nuestros clientes</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="testimonials-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p style="font-style: italic; margin-bottom: 1rem;">"Excelente servicio. Llegaron a tiempo, embalaron todo rapidísimo y no se rompió ni una sola copa. Muy recomendables."</p>
+                    <h5 style="color: var(--accent-color);">— Martín Suáres</h5>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p style="font-style: italic; margin-bottom: 1rem;">"Contratamos el servicio para mudar la oficina. Súper profesionales, todos identificados y muy educados. 10/10."</p>
+                    <h5 style="color: var(--accent-color);">— Laura Gómez</h5>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips de Mudanza -->
+        <section id="tips" class="container">
+            <div class="section-header">
+                <h2>Nuestros Consejos</h2>
+                <div class="underline"></div>
+                <blockquote>Un traslado exitoso empieza con la organización adecuada.</blockquote>
+            </div>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4 style="margin-bottom: 0.5rem; color: var(--accent-color);">1. Etiquetado Claro</h4>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary);">Etiqueta todas las cajas no solo con lo que contienen, sino indicando a qué ambiente de la nueva casa pertenecen.</p>
+                </div>
+                <div class="tip-card">
+                    <h4 style="margin-bottom: 0.5rem; color: var(--accent-color);">2. Kit de Primera Noche</h4>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary);">Arma una caja o maleta con lo esencial para la primera noche: cepillo de dientes, pijamas, cargador del celular y ropa de cama.</p>
+                </div>
             </div>
         </section>
     </main>
